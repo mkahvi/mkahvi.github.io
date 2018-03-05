@@ -1,0 +1,162 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<title>Factorio</title>
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>
+		<meta name='source' content='http://enmoku.github.io/factorio.html' />
+		<meta name='description' content='Factorio tools' />
+		<meta name='keywords' content='Factorio' />
+		<link rel='stylesheet' href='style.css' type='text/css' />
+		<script src='factorio.js'>
+		//
+		</script>
+		<script src='factorio-products.jsonp' type='application/javascript'>
+		//
+		</script>
+		<script src='factorio-turrets.jsonp' type='application/javascript'>
+		//
+		</script>
+	</head>
+	<body>
+	
+	<div id='top' class='header'>
+		<p><span class='huge'>Factorio Tools</span>
+		<br>Data observed from <a href='https://www.factorio.com/'>Factorio</a> 0.12.20.
+		<br>Designed to be fully functional without internet access as long as the page has been loaded or saved to disk properly.<br>
+		If you give it malformed input, you might put the page into infinite loop.
+	</div>
+
+	<div class='content'>
+		<div class='chunk padding repel'>
+			<p>Cascading product resource and energy cost calculator.<br>
+			<span style='color:firebrick;'>Warning: This does not have all the data nor the functionality yet!</span><br>
+			TODO:<br>
+			* Add option to bundle same type of resources. Will inherently break the tree formatting, but can be simpler.<br>
+			* List required resources per tier.
+			<table id='producttable'>
+			<tr>
+			<td colspan=6></td>
+			<td><input id='showraw' type='checkbox' value='rawresources' onchange='toggleShowRaw()'>Show raw resources</input>
+			</tr>
+			<tr>
+			<th>#</th>
+			<th>Product</th>
+			<th>Type</th>
+			<th>Time</th>
+			<th>Fuel</th>
+			<th>Producer</th>
+			<th>Requires</th>
+			</tr>
+			
+			<form name='productselector'>
+			<tr name='endproduct'>
+			<td name='count'><input name='epcnt' value='n/a' size=4 onchange='recalcProduction()' /></td>
+			<td name='epnam'>
+			<select name='epnamsel' onchange='changeEndProduct()'><option>Coal</option></select>
+			</td>
+			<td><input name='eptyp' value='n/a' size=8 readonly /></td>
+			<td><input name='eptim' value='n/a' size=6 readonly /></td>
+			<td><input name='epfue' value='n/a' size=6 readonly /></td>
+			<td><input name='epprd' value='n/a' size=12 readonly /></td>
+			<td><input name='epreq' value='n/a' size=40 readonly /></td>
+			</tr>
+			</form>
+			</table>
+		</div>
+		
+		<div class='chunk padding repel'>
+			<p>Defense turret efficiency calculator.
+			
+			<table id='gundefensetable'>
+			<b>Gun turret</b>
+			<tr><td></td><td></td><td></td><th colspan=3>Upgrades</th></tr>
+			<tr>
+			<th>Speed</th><th>Damage</th><th>Ammo</th><th>Turret Damage</th><th>Bullet Damage</th><th>Speed</th><th>DPS</th><th>DPS%</th><th>Emptied in...</th>
+			</tr>
+			<form name='gunturret'>
+			<tr>
+			<td><input name='gspeed' value='10' size=6 readonly /></td>
+			<td><input name='gdamage' value='4' size=6 readonly /></td>
+			<td>
+			<select name='gammo' onchange='changeGunAmmo()'><option>Regular</option></select>
+			</td>
+			<td>
+			<select name='gturretupg' onchange='changeGunTurretUpgrade()'><option>Unupgraded</option></select>
+			</td>
+			<td>
+			<select name='gdamageupg' onchange='changeGunDamageUpgrade()'><option>Unupgraded</option></select>
+			</td>
+			<td>
+			<select name='gspeedupg' onchange='changeGunSpeedUpgrade()'><option>Unupgraded</option></select>
+			</td>
+			<td><input name='gdps' size=6 value='n/a' readonly /></td>
+			<td><input name='gpercent' size=6 value='n/a' readonly /></td>
+			<td><input name='gempty' size=6 value='n/a' readonly /></td>
+			</tr>
+			</form>
+			</table>
+			
+			<p>
+			
+			<table id='lsrdefensetable'>
+			<b>Laser turret</b>
+			<tr><td></td><td></td><td></td><th colspan=2>Upgrades</th></tr>
+			<tr>
+			<th>Speed</th><th>Damage</th><th>Energy</th><th>Damage</th><th>Speed</th><th>DPS</th><th>DPS%</th>
+			</tr>
+			<form name='laserturret'>
+			<tr>
+			<td><input name='lspeed' value='3' size=6 readonly /></td>
+			<td><input name='ldamage' value='20' size=6 readonly /></td>
+			<td><input name='lenergy' value='2.4MW' size=8 readonly /></td>
+			<td>
+			<select name='ldamageupg' onchange='changeLaserDamageUpgrade()'><option>Unupgraded</option></select>
+			</td>
+			<td>
+			<select name='lspeedupg' onchange='changeLaserSpeedUpgrade()'><option>Unupgraded</option></select>
+			</td>
+			<td><input name='ldps' size=6 value='n/a' readonly /></td>
+			<td><input name='lpercent' size=6 value='n/a' readonly /></td>
+			</tr>
+			</form>
+			</table>
+		</div>
+		
+		
+		<div class='chunk padding repel'>
+		<p>Something to think on.
+		
+		<p>
+<pre>
+// Night is 48 seconds long.
+// Single accumulator = 5 MJ = 5000/48 = 104 kW/s for the night.
+// 240 MJ (48 accumulators) storage = 5MW energy for the night
+
+// 1 solar panel should be enough to charge 1 accumulator for night use
+// 1 MW/s production = 9.6 Accumulators
+
+// Simple accumulator farm (48 accumulators tightly around a substation) = 240 MJ
+// Simple sun farm (24 and a substation)
+
+// Assuming 5 lasers are needed for defense, and defense lasts at worst case 20 seconds...
+// ... you'd need 2.4*5MW/s=12MW/s for 20 seconds = 240MJ
+// ... which is half of the stored energy of above simple accumulator farm.
+</pre>
+		</div>
+	</div>
+	
+	<script>
+	//init javascript
+	setup();
+	setupProducts();
+	setupTurrets();
+	//
+	</script>
+	
+	<div class='footer repel'>
+		<p class='tiny'>created by M.A. &lt;enmoku&gt; </a>, 2015
+		<br><a href='https://plus.google.com/115368956636893942473'>Google+ profile</a>
+		<br>Please give proper attribution (and link them back here) if you use the attached JSON-P or JavaScript files.
+	</div>
+	</body>
+</html>

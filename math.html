@@ -1,0 +1,230 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<title>RMtools</title>
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>
+		<meta name='source' content='http://enmoku.github.io/math.html' />
+		<meta name='description' content='random math tools' />
+		<meta name='keywords' content='conversion, random numbers' />
+		<link rel='stylesheet' href='style.css' />
+	</head>
+	<body>
+	
+	<div id='top' class='header'>
+		<p><span class='huge'>Random [Offline] Math Tools</span>
+		<br>Designed to be fully functional without internet access as long as the page has been loaded or saved to disk properly.<br>
+		If you give it malformed input, you might put the page into infinite loop.
+		<br><a href='#die'>Die</a> – <a href='#circle'>Circle</a> –
+		<a href='#distance'>Distance</a> – <a href='#gcd'>GCD</a> –
+		<a href='#fraction'>Fraction</a> – <a href='#simplify'>Simplify</a> - 
+		<a href='#games'>Games</a>
+		</p>
+	</div>
+
+	<div class='content'>
+		<div class='chunk padding repel'>
+			<p><b><a id='die' href='#die'>Die</a> rolling:</b> <sup>[<a href='#top'>top</a>]</sup>
+			<form id='rollform' method='post' action='#' onsubmit='return false;'>
+			<p>Manual: <input type='text' name='roll' id='dmroll' size='40'>
+			<input type='submit' value='Roll' onclick='dieparse(this.form);'>
+			<p>Simple:
+			<input type='number' min='1' width='4' name='repeat' id='drepeat' size='3' value='1' title='Number of times to repeat the following die roll.'>#
+			<input type='number' min='1' name='count' id='dcount' size='3' value='3' title='Number of dice to roll.'>×
+			d<input type='number' min='1' name='die' id='ddie' size='3' value='6' title='Size of the die to roll.'>
+			+<input type='number' min='-1000' max='1000' name='mod' id='dmod' size='3' value='0' title='Flat modifier added, not done per die.'>
+			<!--
+			condition<label title='<, >, ='>(?)</label>: 
+			<input type='text' name='condition' id='dcond' size='3' value='n/a'/>
+			-->
+			<input type='submit' value='Roll' onclick='dieroll(this.form);'>
+			<div class='quote repel padding' style='visibility: hidden;' id='dresult'>
+			</div>
+			</form>
+		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='circle' href='#circle'>Circle</a> measuring:</b> <sup>[<a href='#top'>top</a>]</sup>
+			<form method='post' action='#' onsubmit='return false;'>
+			
+			<table>
+			<tr><td>area:</td> <td><input type='text' name='area' onblur="circle(this.form, 'area');">
+			<input type='submit' value='Convert' onclick="circle(this.form, 'area');"></td></tr>
+			<tr><td>diameter:</td> <td><input type='text' name='diameter' onblur="circle(this.form, 'dia');">
+			<input type='submit' value='Convert' onclick="circle(this.form, 'dia');"></td></tr>
+			<tr><td>circumference:</td> <td><input type='text' name='circumference' onblur="circle(this.form, 'circ');">
+			<input type='submit' value='Convert' onclick="circle(this.form, 'circ');"></td></tr>
+			</table>
+			</form>
+		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='distance' href='#distance'>Distances</a> conversion:</b> <sup>[<a href='#top'>top</a>]</sup>
+			<form method='post' action='#' onsubmit='return false;'>
+			<table>
+			
+			<tr><td colspan='2'>Metric</td></tr>
+			<tr><td>centimeters:</td> <td><input type='text' name='centimeters' title='inches/2.54' onblur="distances(this.form, 'cm');">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'cm');"></td></tr>
+			<tr><td>meters:</td> <td> <input type='text' name='meters' title='100 centimeters' onblur="distances(this.form, 'm');">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'm');"></td></tr>
+			<tr><td>kilometers:</td> <td> <input type='text' name='kilometers' title='1000 meters' onblur="distances(this.form, 'km');">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'km');"></td></tr>
+			
+			<tr><td colspan='2'>Imperial</td></tr>
+			<tr><td>inches (in):</td> <td> <input type='text' name='inches' title='2.54 cm' onblur="distances(this.form, 'in');">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'in');"></td></tr>
+			<tr><td>feet (ft):</td> <td> <input type='text' name='feet' title='12 inches' onblur="distances(this.form, 'ft');">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'ft');"></td></tr>
+			<tr><td>miles (mi):</td> <td> <input type='text' name='miles' title='5280 feet' onblur="distances(this.form, 'mi');">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'mi');"></td></tr>
+			<tr><td>naut. miles (nmi):</td> <td> <input type='text' name='nmiles' title='1852 meters' onblur="distances(this.form, 'nmi');">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'nmi');"></td></tr>
+			<tr><td>yards (yd):</td> <td> <input type='text' name='yards' title='feet/3' onblur="distances(this.form, 'yd')">
+			<input type='submit' value='Convert' onclick="distances(this.form, 'yd');"></td></tr>
+			</table>
+			</form>
+		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='temperature' href='#temperature'>Temperature</a> conversion:</b> <sup>[<a href='#top'>top</a>]</sup>
+			
+			<form method='post' action='#' onsubmit='return false;'>
+			<table>
+			<tr><td>Celsius (C)</td><td><input type='text' name='celsius' title='conversion' onblur="temperatures(this.form, 'C')"> <input type='submit' value='Convert' onclick="temperatures(this.form, 'C')"></td></tr>
+			<tr><td>Fahrenheit (F)</td><td><input type='text' name='fahrenheit' title='conversion' onblur="temperatures(this.form, 'F')"> <input type='submit' value='Convert' onclick="temperatures(this.form, 'F')"></td></tr>
+			<tr><td>Kelvin (K)</td><td><input type='text' name='kelvin' title='conversion' onblur="temperatures(this.form, 'K')"> <input type='submit' value='Convert' onclick="temperatures(this.form, 'K')"></td></tr>
+			</table>
+			</form>
+		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='gcd' href='#gcd'>Greatest Common Divisor</a> (GCD)</b> <sup>[<a href='#top'>top</a>]</sup>
+			<br>e.g. 1022 / 50005 have GCD of 73
+			<form method='post' action='#' onsubmit='return false;'>
+			<table>
+			<tr><td>
+			<input type='text' name='gcdin1' onblur='gcdform(this.form)'>
+			<input type='text' name='gcdin2' onblur='gcdform(this.form)'>
+			<input type='submit' value='Find' onclick='gcdform(this.form)'> GCD: 
+			<input type='text' name='gcdout' value=''>
+			</td></tr>
+			</table>
+			</form>
+			
+			<p><b><a id='gcd' href='#gcdmulti'>GCD multinumber</a></b> <sup>[<a href='#top'>top</a>]</sup>
+			<br>e.g. 894,174,24 have GCD of 6
+			<form method='post' action='#' onsubmit='return false;'>
+			<table>
+			<tr><td>
+			<input type='text' name='gcdin' onblur='gcdmultiform(this.form)'>
+			<input type='submit' value='Find' onclick='gcdmultiform(this.form)'> GCD: 
+			<input type='text' name='gcdout' value=''>
+			<!-- <input type='text' name='gcddebug' value=''> -->
+			</td></tr>
+			</table>
+			</form>
+			
+			<p><b><a id='fraction' href='#fraction'>Fraction</a>alize</b> <sup>[<a href='#top'>top</a>]</sup>
+			<br>e.g. 0.75 = 75/100, and 5.5 = 55/10
+			<form method='post' action='#' onsubmit='return false;'>
+			<table>
+			<tr><td>
+			<input type='text' name='fractionin' onblur='fraction(this.form)'>
+			<input type='submit' value='Process' onclick='fraction(this.form)'>
+			<input type='text' name='fractionout'>
+			<input type='submit' value='Simplify' onclick='simplifyfract(this.form)'>
+			</td>
+			</tr>
+			</table>
+			</form>
+			
+			<p><b><a id='simplify' href='#simplify'>Simplify</a> fraction</b> <sup>[<a href='#top'>top</a>]</sup>
+			<br>e.g. 108/24 = (108/GCD)/(24/GCD) = 9/2
+			<form method='post' action='#' onsubmit='return false;'>
+			<table>
+			<tr><td>
+			<input type='text' name='sin1' onblur='simplify(this.form)'> /
+			<input type='text' name='sin2' onblur='simplify(this.form)'>
+			<input type='submit' value='Process' onclick='simplify(this.form)'>
+			<input type='text' name='sout1'> /
+			<input type='text' name='sout2'>
+			</td></tr>
+			</table>
+			</form>			
+		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='games' href='#games'>Games</a> <sup>[<a href='#top'>top</a>]</sup><br>
+			<p id='dpstitle'>Damage per Second (DPS)</b>
+			<form method='post' action='#' onsubmit='return false;' id='dpsform'>
+			<table>
+			<tr><th colspan='3'>Burst damage</th><tr>
+			<tr><td>
+			Damage: <input type='text' name='damage' size='6' onblur='dps(this.form)'>
+			</td><td>
+			Rate: <input type='text' name='rate' size='6' title='Shots per second' onblur='dps(this.form)'>
+			<br><input type='checkbox' name='dpm' onchange='dpsformatchange(this.form)'/> per minute.
+			</td><td>
+			DPS: <input type='text' size='6' name='dpsout'>
+			DPM: <input type='text' size='6' name='dpmout'>
+			</td></tr>
+			<tr><th colspan='3'>Critical hits <input type='checkbox' name='criticalsenabled' checked='true' onchange='dps(this.form)' /></th><tr>
+			<tr>
+				<td>Chance: <input type='text' size='6' name='critchance' title='Critical chance, either multiplier (1.0 = 100%) or percentage (20%).' onblur='dps(this.form)'>
+				</td>
+				<td>Bonus: <input type='text' size='6' name='critbonus' title='Bonus damage done on critical.' onblur='dps(this.form)'>
+				<br>
+				<input type='checkbox' name='critamp' onchange='criticalAmp(this.form)'> multiplier
+				</td>
+				<td>%Increase: <input type='text' size='6' name='critout'></td>
+			</tr>
+			<!--
+			<tr><th colspan='3'>Weak points <input type='checkbox' name='weakpointsenabled' checked='true' onchange='dps(this.form)' /></th><tr>
+			<tr>
+				<td>Chance: <input type='text' size='6' name='weakchance' title='Weak spot hit chance, either multiplier (1.0 = 100%) or percentage (20%).' onblur='dps(this.form)'>
+				</td>
+				<td>Bonus: <input type='text' size='6' name='weakbonus' title='Bonus damage done on weak point.' onblur='dps(this.form)'>
+				<br>
+				<input type='checkbox' name='weakamp' onchange='weakpointAmp(this.form)'> multiplier
+				</td>
+				<td>%Increase <input type='text' size='6' name='weakout'></td>
+			</tr>
+			-->
+			<tr><th colspan='3'>Sustained damage</th><tr>
+			<tr><td>
+			Ammo: <input type='text' size='6' name='ammo' onblur='dps(this.form)'>
+			</td><td>
+			Reload: <input type='text' size='6' name='reload' title='Seconds spend reloading' onblur='dps(this.form)'>
+			</td>
+			<td>
+			Sustained DPS: <input type='text' size='6' name='sustaineddps'><br />
+			Output duration: <input type='text' size='6' name='outputduration'><br />
+			Output percentage: <input type='text' size='6' name='outputpercentage'><br />
+			</tr>
+			<tr>
+			<td colspan='3'>
+			<p class='repel'>Sustained DPS = <span class='tooltipped' title='Damage per second'>((Damage + (CritChance * CritDamage)) * Rate)</span> * <span class='tooltipped' title='Percentage of active firing'>((Ammo / Rate) / ((Ammo/Rate)+Reload))</span>
+			</td>
+			</tr>
+			<tr><th colspan='3'>Functions</th><tr>
+			<tr>
+			<td></td>
+			<td></td>
+			<td align='right'><input type='submit' value='Calculate' onclick='dps(this.form)'><td></tr>
+			</table>
+			</form>		
+		</div>
+	</div>
+	
+	<script src='math.js' async='false' defer='false'>
+	setup_math();
+	</script>
+	<script src='games.js' async='false' defer='false'>
+	setup_games();
+	</script>
+
+	<div class='footer repel'>
+		<p class='tiny'>created by M.A.</a>, 2013–2018 (last update: 2018-01-22)
+	</div>
+	</body>
+</html>

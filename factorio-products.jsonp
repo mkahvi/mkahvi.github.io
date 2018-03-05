@@ -1,0 +1,292 @@
+﻿// by M.A. <enmoku>
+// https://plus.google.com/115368956636893942473
+// http://ma-tools.appspot.com/factorio
+
+FactorioProductData( // start:JSON-P
+{ // start:JSON
+'Products':
+	{
+	'Stone':
+		{
+		'tier': 0,
+		'time': 1,
+		'type': 'Raw resource',
+		'producer': 'Miner',
+		},
+	'Stone brick':
+		{
+		'tier': 1,
+		'time': 3.5,
+		'requires': {'Stone': 2},
+		'producer': 'Furnace',
+		},
+	'Concerete':
+		{
+		'tier': 2,
+		'time': 10,
+		'producer': 'Assembler',
+		'requires': {'Water':10, 'Iron ore':1, 'Stone brick':5},
+		},
+	'Coal':
+		{
+		'tier': 0,
+		'time': 1,
+		'type': ['Fuel', 'Raw resource'],
+		'fuel': '8MJ',
+		'producer': 'Miner',
+		},
+	'Raw wood':
+		{
+		'tier': 0,
+		'time': 1,
+		'type': ['Fuel', 'Raw resource'],
+		'fuel': '4MJ',
+		},
+	'Wood':
+		{
+		'tier': 1,
+		'batch': 2,
+		'time': 0.5,
+		'type': ['Fuel','Resource'],
+		'fuel': '2MJ',
+		'requires': {'Raw wood':1},
+		},
+	'Solid fuel':
+		{
+		'tier': 2,
+		'type': 'Fuel',
+		'fuel': '25MJ',
+		},
+	'Copper ore':
+		{
+		'tier': 0,
+		'time': 1,
+		'type': 'Raw resource',
+		'producer': 'Miner',
+		},
+	'Iron ore':
+		{
+		'tier': 0,
+		'time': 1,
+		'type': 'Raw resource',
+		'producer': 'Miner',
+		},
+	// CABLES & WIRES
+	'Copper cable':
+		{
+		'tier': 1,
+		'batch': 2,
+		'time': 0.5,
+		'type': 'Resource',
+		'producer': 'Assembler',
+		'requires': {'Copper plate':1},
+		},
+	'Red wire':
+		{
+		'tier': 5,
+		'time':0.5,
+		'type': 'Utility',
+		'producer': 'Assembler',
+		'requires':{'Copper cable':1, 'Electronic circuit':1},
+		},
+	'Green wire':
+		{
+		'tier': 5,
+		'time':0.5,
+		'type': 'Utility',
+		'producer': 'Assembler',
+		'requires':{'Copper cable':1, 'Electronic circuit':1},
+		},
+	'Copper plate':
+		{
+		'tier': 1,
+		'time': 3.5,
+		'type': 'Resource',
+		'producer': 'Smelter',
+		'requires': {'Copper ore':1},
+		},
+	'Iron plate':
+		{
+		'tier': 1,
+		'time': 3.5,
+		'type': 'Resource',
+		'producer': 'Smelter',
+		'requires': {'Iron ore':1},
+		},
+	'Iron gear wheel':
+		{
+		'tier': 2,
+		'time': 0.5,
+		'type': 'Resource',
+		'producer': 'Assembler',
+		'requires': {'Iron plate':2},
+		},
+	'Iron Stick':
+		{
+		'tier': 2,
+		'batch': 2,
+		'time': 0.5,
+		'type': 'Resource',
+		'producer': 'Assembler',
+		'requires': {'Iron plate':1},
+		},
+	'Steel plate':
+		{
+		'tier': 1,
+		'time': 17.5,
+		'type': 'Resource',
+		'producer': 'Smelter',
+		'requires': {'Iron Plate':5},
+		},
+	// ELECTRONICS
+	'Electronic circuit':
+		{
+		'tier': 4,
+		'time':0.5,
+		'type': 'Resource',
+		'requires': {'Iron plate':1, 'Copper cable':3},
+		'producer': 'Assembler',
+		},
+	'Advanced circuit':
+		{
+		'tier': 5, // probably higher
+		'time':8,
+		'type': 'Resource',
+		'requires': {'Electronic circuit':2, 'Plastic bar':2, 'Copper cable':4},
+		'producer': 'Assembler',
+		},
+	'Processing unit':
+		{
+		'tier': 6, // probably higher
+		'time': 15,
+		'type': 'Resource',
+		'requires': {'Electronic circuit':20, 'Advanced circuit':2, 'Sulfuric acid':0.5},
+		'producer': 'Assembler',
+		},
+	'Battery':
+		{
+		'tier': 5,
+		'time': 5,
+		'type': 'Resource',
+		'producer': 'Assembler',
+		'requires': {'Iron plate':1, 'Copper plate':1, 'Sulfuric acid':2},
+		},
+	// INSERTERS
+	'Burner inserter':
+		{
+		'tier': 3,
+		'time':0.5,
+		'energy': '188kW',
+		'requires': {'Iron plate':1, 'Iron gear wheel':1},
+		},
+	'Inserter':
+		{
+		'tier': 5,
+		'time':0.5,
+		'energy': '13kW',
+		'requires': {'Electronic circuit':1, 'Iron gear wheel':1, 'Iron plate':1},
+		},
+	'Fast inserter':
+		{
+		'tier': 6,
+		'time': 0.5,
+		'energy': '33kW',
+		'requires': {'Electronic circuit':2, 'Iron plate':2, 'Inserter':1},
+		},
+	'Smart inserter':
+		{
+		'tier': 7,
+		'time':0.5,
+		'energy': '44.1kW',
+		'requires': {'Fast inserter':1, 'Electronic circuit':4},
+		},
+	'Long handed inserter':
+		{
+		'tier': 6,
+		'time': 0.5,
+		'energy': '20kW',
+		'requires': {'Inserter':1, 'Iron gear wheel':1, 'Iron plate':1},
+		},
+	// LIQUIDS
+	'Water':
+		{
+		'tier': 0,
+		'time': 0.1,
+		'type': 'Raw resource',
+		'producer': 'Pump',
+		},
+	'Crude oil':
+		{
+		'tier': 0,
+		'time': 1, // quantity variable from about 2.1 to 0.1, so this is difficult to represent
+		'type': 'Raw resource',
+		'producer': 'Pump',
+		},
+	'Light oil':
+		{
+		'tier': 1,
+		'time': 1,
+		'type': 'Resource',
+		'producer': 'Refinery',
+		},
+	'Heavy oil':
+		{
+		'tier': 1,
+		'time': 1,
+		'type': 'Resource',
+		'producer': 'Refinery',
+		},
+	'Petroleum':
+		{
+		'tier': 1,
+		'time': 1,
+		'type': 'Resource',
+		'producer': 'Refinery',
+		},
+	'Lubricant':
+		{
+		'tier': 2,
+		'time': 1,
+		'type': 'Resource',
+		'producer': 'Refinery',
+		},
+	// MINERS
+	'Burner mining drill':
+		{
+		'tier': 3,
+		'time': 2,
+		'type': 'Miner',
+		'power': 2.5,
+		'speed': 0.35,
+		'energy': '300kW',
+		'requires': {'Stone furnace':1, 'Iron gear wheel':3},
+		'consumption': '300kW',
+		},
+	'Electric mining drill':
+		{
+		'tier': 5,
+		'time': 2,
+		'type': 'Miner',
+		'power': 3,
+		'speed': 0.5,
+		'energy': '90kW',
+		'requires': {'Electronic circuit':5, 'Iron gear wheel':5, 'Iron plate':10},
+		'modules': 3,
+		},
+	// FURNACES
+	// PUMPS
+	'Offshore pump':
+		{
+		'power': 1,
+		'speed': 1,
+		},
+	// GENERATORS
+	'Steam engine':
+		{
+		},
+	'Solar panel':
+		{
+		}
+	}, // end:Products
+} // end:JSON
+); // end:JSON-P

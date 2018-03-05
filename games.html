@@ -1,0 +1,78 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<title>RMtools :: Games</title>
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>
+		<meta name='source' content='http://enmoku.github.io/games.html' />
+		<meta name='description' content='random math tools' />
+		<meta name='keywords' content='conversion, random numbers' />
+		<link rel='stylesheet' href='style.css' />
+		<script src='math.js' async='false' defer='false'></script>
+		<script src='games.js' async='false' defer='false'></script>
+	</head>
+	<body>
+	
+	<div id='top' class='header'>
+		<p><span class='huge'>Random [Offline] Math Tools</span>
+		<br>Designed to be fully functional without internet access as long as the page has been loaded or saved to disk properly.<br>
+		If you give it malformed input, you might put the page into infinite loop.
+		<br><a href='./math.html#die'>Die</a> – <a href='./math.html#circle'>Circle</a> –
+		<a href='./math.html#distance'>Distance</a> – <a href='./math.html#gcd'>GCD</a> –
+		<a href='./math.html#fraction'>Fraction</a> – <a href='./math.html#simplify'>Simplify</a> - 
+		<a href='./games.html'>Games</a>
+		</p>
+	</div>
+
+	<div class='content'>
+		<div class='chunk padding repel'>
+			<p><b><a id='games' href='#games'>Games</a> <sup>[<a href='#top'>top</a>]</sup><br>
+			<p>Damage per Second (DPS)</b>
+			<form method='post' action='#' onsubmit='return false;'>
+			<table>
+			<tr><td>
+			Damage: <input type='text' name='damage' onblur='dps(this.form)'>
+			</td><td>
+			Rate: <input type='text' name='rate' title='Shots per second' onblur='dps(this.form)'>
+			<!-- <br><input type='checkbox' name='dpm' onclick='dpm(this.form)'/> per minute -->
+			</td><td>
+			<input type='submit' value='Process' onclick='dps(this.form)'>
+			<span name='dpsformat'>DPS</span>: <input type='text' name='dpsout'>
+			</td></tr>
+			<tr><td>
+			Crit chance: <input type='text' name='critchance' title='Critical chance, either multiplier (1.0 = 100%) or percentage (20%).' onblur='dps(this.form)'>
+			</td><td>
+			Crit bonus: <input type='text' name='critbonus' title='Bonus damage done on critical.' onblur='dps(this.form)'>
+			</td>
+			<td>%Increase: <input type='text' name='critout'></td>
+			</tr>
+			<tr><td>
+			Ammo: <input type='text' name='ammo' onblur='dps(this.form)'>
+			</td><td>
+			Reload: <input type='text' name='reload' title='Seconds spend reloading' onblur='dps(this.form)'>
+			</td>
+			<td>
+			Sustained DPS: <input type='text' name='sustaineddps'><br />
+			Output duration: <input type='text' name='outputduration'><br />
+			Output percentage: <input type='text' name='outputpercentage'><br />
+			</tr>
+			<tr>
+			<td colspan='3'>
+			<p>Sustained DPS = <span class='tooltipped' title='Damage per second'>((Damage + (CritChance * CritDamage)) * Rate)</span> * <span class='tooltipped' title='Percentage of active firing'>((Ammo / Rate) / ((Ammo/Rate)+Reload))</span>
+			</td>
+			</tr>
+			</table>
+			</form>		
+		</div>
+	</div>
+	
+	<script type='text/javascript'>
+	setup();
+	</script>
+
+	<div class='footer repel'>
+		<p class='tiny'>created by M.A.</a>, 2013–2018 (last update: 2018-01-22)
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<g:plusone></g:plusone>
+	</div>
+	</body>
+</html>

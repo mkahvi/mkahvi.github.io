@@ -1,0 +1,82 @@
+﻿// by M.A. <enmoku>
+// https://plus.google.com/115368956636893942473
+// http://ma-tools.appspot.com/factorio
+
+FactorioTurretData(
+{
+'Gun':
+	{
+	'Damage': [4,10], // 4 with regular, 10 with piercing rounds
+	'Speed': 10,
+	'Energy': 0,
+	'Ammo':
+		{
+			'Regular': 4,
+			'Piercing': 10,
+		},
+	'Capacity': 100, // maximum ammo loaded without reloading
+	'Upgrades':
+		{
+		'Turret':
+			{
+			'Unupgraded': 1.0,
+			'Tier 1 (110%)': 1.1,
+			'Tier 2 (120%)': 1.2,
+			'Tier 3 (140%)': 1.4,
+			'Tier 4 (160%)': 1.6,
+			'Tier 5 (180%)': 1.8,
+			'Tier 6 (220%)': 2.2,
+			},
+		'Speed':
+			{
+			'Unupgraded': 1.0,
+			'Tier 1 (120%)': 1.2,
+			'Tier 2 (140%)': 1.4,
+			'Tier 3 (170%)': 1.7,
+			'Tier 4 (200%)': 2.0,
+			'Tier 5 (230%)': 2.3,
+			'Tier 6 (260%)': 2.6,
+			},
+		'Damage':
+			{
+			'Unupgraded': 1.0,
+			'Tier 1 (110%)': 1.1,
+			'Tier 2 (120%)': 1.2,
+			'Tier 3 (140%)': 1.4,
+			'Tier 4 (160%)': 1.6,
+			'Tier 5 (180%)': 1.8,
+			'Tier 6 (220%)': 2.2,
+			},
+		},
+	},
+'Laser':
+	{
+	'Damage': 20,
+	'Speed': 3,
+	'Energy': '2.4MW', // per shot or per second?
+	'Drain': '24kW', // consumed regardless if the thing is active
+	'Upgrades':
+		{
+		'Damage':
+			{
+			'Unupgraded': 1.0,
+			'Tier 1 (110%)': 1.1,
+			'Tier 2 (120%)': 1.2,
+			'Tier 3 (140%)': 1.4,
+			'Tier 4 (160%)': 1.6,
+			'Tier 5 (180%)': 1.8,
+			'Tier 6 (220%)': 2.2,
+			},
+		'Speed':
+			{
+			'Unupgraded': 1.0,
+			'Tier 1 (120%)': 1.2,
+			'Tier 2 (140%)': 1.4,
+			'Tier 3 (170%)': 1.7,
+			'Tier 4 (200%)': 2.0,
+			'Tier 5 (230%)': 2.3,
+			'Tier 6 (260%)': 2.6,
+			},
+		},
+	},
+});

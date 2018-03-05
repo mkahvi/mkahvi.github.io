@@ -1,0 +1,139 @@
+/* by M.K.A. 2013 */
+
+html, body {
+	background-color: white;
+	color: black;
+	font-family: sans-serif;
+}
+.graybg, .quote {
+	background-color: rgb(242,242,237);
+}
+.roll {
+	font-weight: bold;
+}
+.max {
+	color: DarkGreen;
+}
+.min {
+	color: Maroon;
+}
+.darkbg {
+	background-color: #A0A0A0;
+}
+.huge {
+	font-size: 160%;
+}
+.big {
+	font-size: 120%;
+	font-weight: bold;
+}
+.padding {
+	padding: 0.5em;
+}
+.chunk {
+	border: 1px dashed black;
+	width: auto;
+}
+.chunk form {
+	padding: 0em;
+}
+div.header {
+	padding-bottom: 0.3em;
+}
+div.footer {
+	font-size: small;
+}
+div.content {
+	
+}
+.repel {
+	margin-top: 0.7em;
+}
+div.quote {
+	margin-left: 2em;
+	margin-right: 5em;
+	padding: 0.2em;
+	border: thin dashed black;
+}
+.notice, .tiny{
+	font-size: small;
+}
+div.important {
+	padding: 0.2em;
+	border: thin dashed black;
+	background-color: rgb(229,236,229);
+}
+.high {
+	font-size: large;
+}
+.mono {
+	font-family: monospace;
+}
+table th {
+	background-color: rgb(255,244,235);
+	border-bottom: thin dashed black;
+}
+img {
+	border: none;
+}
+a:link {
+	color: #a6d06a;
+	color-alt: #8ea371;
+}
+a:visited {
+	color: #8d8170;
+}
+a:active, a:hover, a:focus {
+	color: #99bfde;
+}
+tr.c td, .mdl {
+	text-align: center;
+}
+.norm {
+	text-align: left;
+	font-family: sans-serif;
+}
+.right, tr.c td.right {
+	text-align: right;
+}
+.ign, .warn {
+	color: maroon;
+}
+.sup {
+	vertical-align: super;
+}
+.tooltipped {
+	color: #36700a;
+}	
+.tip {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	padding: 3px;
+	border: solid 1px;
+	background-color: rgb(242,254,214);
+}
+.hover:hover {
+	color: rgb(66, 80, 46);
+	background-color: rgb(228,228,228);
+}
+
+input#drepeat, input#ddie, input#dcount, input#dmod {
+	width: 4em;
+}
+tr#tl {
+	background-color: #E0E0E0;
+}
+
+p {
+	padding-top: 0em;
+	margin-top: 0em;
+}
+
+pre {
+	margin: 0em;
+	padding: 0em;
+}
+
