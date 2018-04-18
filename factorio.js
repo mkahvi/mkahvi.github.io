@@ -1,4 +1,4 @@
-﻿// by M.A. <enmoku>
+﻿// by M.A. <mkahvi@github>
 // https://plus.google.com/115368956636893942473
 // http://ma-tools.appspot.com/factorio
 
