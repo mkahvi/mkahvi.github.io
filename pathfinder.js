@@ -107,14 +107,15 @@ function travelparse()
 	
 	tresult.innerHTML = "";
 	
-	if (days.isNaN || hours.isNaN || hp.isNaN || hd.isNaN || days <= 0 || hours <= 0 || hp <= 0 || hd <= 0)
+	if (days.isNaN || hours.isNaN || hp.isNaN || hd.isNaN ||
+		days <= 0 || hours <= 0 || hours > 24 || hp <= 0 || hd <= 0)
 	{
 		tresult.innerHTML = "<p style='color:red;'>Malformed input.";
 		
 		if (days.isNaN || days <= 0)
 			tresult.innerHTML += "<p>Days = 0 or NaN"
-		if (hours.isNaN || hours <= 0)
-			tresult.innerHTML += "<p>Hours = 0 or NaN"
+		if (hours.isNaN || hours <= 0 || hours > 24)
+			tresult.innerHTML += "<p>Hours = 0 or NaN or >24"
 		if (hp.isNaN || hp <= 0)
 			tresult.innerHTML += "<p>HP = 0 or NaN"
 		if (hd.isNaN || hd <= 0)
@@ -123,8 +124,20 @@ function travelparse()
 		return;
 	}
 	
+	if (hd > 60) tresult.innerHTML += "<p class='high warn'>... Why tho?";
+	else if (hd > 40) tresult.innerHTML += "<p class='high warn'>EP– ... Uhh...";
+	else if (hd > 20) tresult.innerHTML += "<p class='high tooltipped'>EPIC!";
+	
 	// update URL
 	window.location.hash = "travel="+days+"d"+hours+"h"+hp+"hp"+hd+"hd"+(fastheal?"f":"");
+	
+	var resting = 8;
+	
+	if (hours > 24-8)
+		resting = Math.max(0, 24 - hours);
+	
+	var preparing = resting > 1 ? 1 : 0;
+	if (preparing) resting -= 1;
 	
 	var longestStretch = Math.min(hours, Math.max(hp, hd));
 	var healPerHour = hd;
@@ -132,6 +145,8 @@ function travelparse()
 	var remainingAfterLongest = hours-longestStretch;
 	var staggerLength = Math.min(hp, hd, healPerHour);
 	
+	var restingHeal = (resting+preparing) * healPerHour;
+
 	var walkHours = 0;
 	
 	if (remainingAfterLongest > 1 && healPerHour > 0)
@@ -140,10 +155,32 @@ function travelparse()
 		walkHours = remainingAfterLongest;
 	
 	var hustleHours = hours - walkHours;
+	
+	var idleHours = 24 - (hours + resting + preparing);
+	
 	var totalHours = hours + hustleHours;
 	var boost = totalHours / hours;
 	var finalDays = (days * hours) / totalHours;
 	var savedDays = days - finalDays;
+	
+	var NLtotal = (hustleHours-1);
+	var NLheal = (walkHours*healPerHour);
+	var NLleft = Math.max(0, NLtotal - NLheal);
+	var NLmorning = Math.max(0, (NLleft - ((resting+preparing)*healPerHour)));
+	
+	var shiftedHustle = 0;
+	while (NLmorning > 0)
+	{
+		hustleHours -= 1;
+		walkHours += 1;
+		
+		shiftedHustle += 1;
+		
+		NLtotal = (hustleHours-1);
+		NLheal = (walkHours*healPerHour);
+		NLleft = Math.max(0, NLtotal - NLheal);
+		NLmorning = Math.max(0, (NLleft - ((resting+preparing)*healPerHour)));
+	}
 	
 	// Final Push
 	
@@ -151,29 +188,69 @@ function travelparse()
 	var finalDaysWithPush = (days*hours) / (totalHours+(finalPush/days));
 	var savedDaysWithPush = days - finalDaysWithPush;
 	
-	var NLtotal = (hustleHours-1);
-	var NLheal = (walkHours*healPerHour);
-	var NLleft = NLtotal - NLheal;
+	var NLpush = NLleft + finalPush;
 	
-	tresult.innerHTML += "<p><b>Daily hours</b>" + 
-		"<br>– Walking: " + walkHours + "<br>– Hustling: " + hustleHours +
-		"<br><b>Total</b> travel hours: " + (hours + hustleHours);
+	if ((NLleft > healPerHour*(resting+walkHours)) && days > 1)
+		tresult.innerHTML += "<p class='warn'>Internal error: NL damage exceeding safety limits.";
+	
+	var dailyMarchLimit = 24-8-9;
+	
+	var forcedMarch = Math.max(0, hours - 8);
+	var optForcedMarch = hd>5 ? (dailyMarchLimit) : 0; // 8 for default travel, 9 for resting and preparation
+	
+	tresult.innerHTML += "<p><b>Daily</b>" + 
+		"<br>– Walking: " + walkHours +
+		"<br>– Hustling: " + hustleHours +
+		"<br>– Resting: " + resting + (shiftedHustle > 0 ? " – hustling swapped for walking to compensate: " + shiftedHustle : "") + 
+		"<br>– Preparing: " + preparing + " – " + (resting==8 ?"spell ":"") + "camp preparation" +
+		"<br>– Idle: " + idleHours +
+		"<br>Effective travel hours: " + (hours + hustleHours) + 
+		"<br><b>Non-lethal damage</b>" +
+		"<br>– Total: " + NLtotal.toFixed() +
+		"<br>– Healed: " + NLheal.toFixed() + " – from walking" +
+		"<br>– Left: " + color(NLleft.toFixed() + (NLleft>0 ? " (Fatigued)" : ""), -NLleft) + " – before resting, which can heal " + restingHeal +
+		"<br>– Morning: " + color(NLmorning.toFixed() + (NLmorning>0 ? " (Fatigued)" : ""), -NLmorning);
+	
+	if (NLleft >= hp)
+		tresult.innerHTML += "<p class='warn'>Unconscious";
+
+	if (resting < 2)
+		tresult.innerHTML += "<p class='warn'>2 hour rest skipped, spell & ability refresh unavailable." + 
+			"<br>Ring of Sustenance and similar options non-functional."
+	else if (resting < 8)
+		tresult.innerHTML += "<p class='warn'>8 hour rest skipped, spell & ability refresh unavailable." + 
+			"<br>Ring of Sustenance still allows this works.";
+	if (preparing < 1)
+		tresult.innerHTML += "<p class='warn'>Wizard & Cleric spell preparation denied.";
 	
 	tresult.innerHTML += "<p><b>Final travel time</b>" + 
 		"<br>– Total days: " + finalDays.toPrecision(3) +
 		"<br>– Total hours: " + (finalDays*hours).toPrecision(3) + 
-		"<br>– Boost: ×" + boost.toPrecision(4) + " (" + ((boost-1)*100).toPrecision(3) + "%)" +
+		"<br>– Boost: ×" + boost.toPrecision(3) + " (" + ((boost-1)*100).toPrecision(3) + "%)" +
 		"<br>– Saved days: " + savedDays.toPrecision(3) +
-		"<br>– Saved hours: " + (savedDays*hours).toPrecision(3) +
-		"<br><b>Non-lethal damage</b>" +
-		"<br>– Total: " + NLtotal.toFixed() +
-		"<br>– Healed: " + NLheal.toFixed() + 
-		"<br>– Left: " + color(NLleft.toFixed() + (NLleft>0 ? " (Fatigued)" : ""), -NLleft);
+		"<br>– Saved hours: " + (savedDays*hours).toPrecision(3);
 	
 	tresult.innerHTML += "<p><b>Final push</b>" +
-		"<br>– Extra hours: " + finalPush.toPrecision(3) +
+		"<br>– Extra hours: " + finalPush + " – from hustling instead of walking" +
+		(finalPush > 0 ?
 		"<br>– Final days: " + finalDaysWithPush.toPrecision(3) +
-		"<br>– Total saved days: " + savedDaysWithPush.toPrecision(3);
+		"<br>– Total saved days: " + savedDaysWithPush.toPrecision(3) + 
+		"<br>– NL left: " + color(NLpush + (NLpush>0 ? " ("+((NLpush >= hp)?"Unconscious":"Fatigued")+")" : ""), -NLpush) : "");
+	
+	var checks = new Array();
+	for (i = 0; i < forcedMarch; i++)
+		checks.push(10 + (i*2));
+	
+	tresult.innerHTML += "<p><b>Forced March</b>" +
+		"<br>– Hours: " + forcedMarch +
+		"<br>– Checks: " + checks.join(", ") +
+		"<br>– Damage: " + forcedMarch + " – " + (forcedMarch*6) +
+		"<br>– Left: " + (healPerHour < 6 ? (Math.max(0,(forcedMarch-healPerHour)) + " – " + (forcedMarch * (6-healPerHour))) : 0);
+	
+	tresult.innerHTML += "<p><b>Optimal forced march</b>" +
+		"<br>– Hours: " + optForcedMarch.toFixed() +
+		"<br>– Hustling: " + (hd>6 ? "Yes" : "No") +
+		"<br>– Total travel time: " + (8 + optForcedMarch);
 }
 
 function color(str, color)
