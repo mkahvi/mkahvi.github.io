@@ -244,7 +244,7 @@ function travelparse()
 		"<br>– Saved days: " + savedDays.toPrecision(3) +
 		"<br>– Saved hours: " + (savedDays*hours).toPrecision(3);
 	
-	tresult.innerHTML += "<p><b>Final push</b>" +
+	tresult.innerHTML += "<p><b>With hasty final push</b>" +
 		"<br>– Extra hours: " + finalPush + " – from hustling instead of walking" +
 		(finalPush > 0 ?
 		"<br>– Final days: " + finalDaysWithPush.toPrecision(3) +
