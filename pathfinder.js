@@ -206,6 +206,12 @@ function travelparse()
 	var forcedMarch = Math.max(0, hours - 8);
 	var optForcedMarch = hd>5 ? (dailyMarchLimit) : 0; // 8 for default travel, 9 for resting and preparation
 	
+	var optForcedMarchDaily = (8 + optForcedMarch);
+	var optForcedMarchDailyEffective =  optForcedMarchDaily + hustleHours;
+	var optForcedMarchDays = (hours*days) / optForcedMarchDailyEffective;
+	
+	var marchboost = optForcedMarchDaily / hours;
+	
 	tresult.innerHTML += "<p><b>Daily</b>" + 
 		"<br>– Walking: " + walkHours +
 		"<br>– Hustling: " + hustleHours +
@@ -255,12 +261,13 @@ function travelparse()
 		"<br>– Damage: " + forcedMarch + " – " + (forcedMarch*6) +
 		"<br>– Left: " + (healPerHour < 6 ? (Math.max(0,(forcedMarch-healPerHour)) + " – " + (forcedMarch * (6-healPerHour))) : 0);
 	
-	var optForcedMarchTotal = (8 + optForcedMarch);
-	tresult.innerHTML += "<p><b>Optimal forced march</b>" + (hours == optForcedMarchTotal ? " (IN USE!)" : "") +
+	tresult.innerHTML += "<p><b>Optimal forced march</b>" + (hours == optForcedMarchDaily ? " (IN USE!)" : "") +
 		"<br>– Hours: " + optForcedMarch.toFixed() +
 		"<br>– Hustling: " + (hd>6 ? "Yes" : "No") +
-		"<br>– Total travel time: " + optForcedMarchTotal + (hours != optForcedMarchTotal ? 
-		"<br>– <a href='#travel="+days+"d"+optForcedMarchTotal+"h"+hp+"hp"+hd+"hd'>Do this!</a>" : "");
+		"<br>– Total daily hours: " + optForcedMarchDaily +
+		"<br>– Effective daily hours: " + optForcedMarchDailyEffective + 
+		"<br>– Boost: ×" + marchboost.toPrecision(3) +
+		"<br>– Days: " + optForcedMarchDays.toPrecision(3);
 }
 
 function color(str, color)
