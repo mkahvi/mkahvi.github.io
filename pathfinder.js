@@ -132,12 +132,21 @@ function travelparse()
 	window.location.hash = "travel="+days+"d"+hours+"h"+hp+"hp"+hd+"hd"+(fastheal?"f":"");
 	
 	var resting = 8;
+	var preparing = 0;
 	
-	if (hours > 24-8)
-		resting = Math.max(0, 24 - hours);
+	var left = 24 - hours;
+	if (left < 2)
+	{
+		resting = left;
+		preparing = 0;
+	}
+	else
+	{
+		resting = left < 9 ? (left-1) : (Math.min(8, left-1));
+		preparing = 1;
+	}
 	
-	var preparing = resting > 1 ? 1 : 0;
-	if (preparing) resting -= 1;
+	var idleHours = 24 - hours - resting - preparing;
 	
 	var longestStretch = Math.min(hours, Math.max(hp, hd));
 	var healPerHour = hd;
@@ -145,8 +154,6 @@ function travelparse()
 	var remainingAfterLongest = hours-longestStretch;
 	var staggerLength = Math.min(hp, hd, healPerHour);
 	
-	var restingHeal = (resting+preparing) * healPerHour;
-
 	var walkHours = 0;
 	
 	if (remainingAfterLongest > 1 && healPerHour > 0)
@@ -155,8 +162,6 @@ function travelparse()
 		walkHours = remainingAfterLongest;
 	
 	var hustleHours = hours - walkHours;
-	
-	var idleHours = 24 - (hours + resting + preparing);
 	
 	var totalHours = hours + hustleHours;
 	var boost = totalHours / hours;
@@ -190,8 +195,11 @@ function travelparse()
 	
 	var NLpush = NLleft + finalPush;
 	
-	if ((NLleft > healPerHour*(resting+walkHours)) && days > 1)
-		tresult.innerHTML += "<p class='warn'>Internal error: NL damage exceeding safety limits.";
+	var restingHeal = (resting+preparing) * healPerHour;
+	
+	if (NLleft > (healPerHour*(resting+preparing+walkHours)) && days > 1)
+		tresult.innerHTML += "<p class='warn'>Internal error: NL damage exceeding safety limits."+
+			"<br>" + healPerHour + " .. " + (healPerHour*(resting+walkHours));
 	
 	var dailyMarchLimit = 24-8-9;
 	
@@ -202,7 +210,7 @@ function travelparse()
 		"<br>– Walking: " + walkHours +
 		"<br>– Hustling: " + hustleHours +
 		"<br>– Resting: " + resting + (shiftedHustle > 0 ? " – hustling swapped for walking to compensate: " + shiftedHustle : "") + 
-		"<br>– Preparing: " + preparing + " – " + (resting==8 ?"spell ":"") + "camp preparation" +
+		"<br>– Preparing: " + preparing + " – " + (resting==8 ?"spell &amp; ":"") + "camp preparation" +
 		"<br>– Idle: " + idleHours +
 		"<br>Effective travel hours: " + (hours + hustleHours) + 
 		"<br><b>Non-lethal damage</b>" +
