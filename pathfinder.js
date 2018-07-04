@@ -171,10 +171,10 @@ function travelparse()
 	var NLtotal = (hustleHours-1);
 	var NLheal = (walkHours*healPerHour);
 	var NLleft = Math.max(0, NLtotal - NLheal);
-	var NLmorning = Math.max(0, (NLleft - ((resting+preparing)*healPerHour)));
+	var NLrested = Math.max(0, (NLleft - ((resting+preparing)*healPerHour)));
 	
 	var shiftedHustle = 0;
-	while (NLmorning > 0)
+	while (NLrested > 0)
 	{
 		hustleHours -= 1;
 		walkHours += 1;
@@ -184,7 +184,7 @@ function travelparse()
 		NLtotal = (hustleHours-1);
 		NLheal = (walkHours*healPerHour);
 		NLleft = Math.max(0, NLtotal - NLheal);
-		NLmorning = Math.max(0, (NLleft - ((resting+preparing)*healPerHour)));
+		NLrested = Math.max(0, (NLleft - ((resting+preparing)*healPerHour)));
 	}
 	
 	// Final Push
@@ -223,7 +223,7 @@ function travelparse()
 		"<br>– Total: " + NLtotal.toFixed() +
 		"<br>– Healed: " + NLheal.toFixed() + " – from walking" +
 		"<br>– Left: " + color(NLleft.toFixed() + (NLleft>0 ? " (Fatigued)" : ""), -NLleft) + " – before resting, which can heal " + restingHeal +
-		"<br>– Morning: " + color(NLmorning.toFixed() + (NLmorning>0 ? " (Fatigued)" : ""), -NLmorning);
+		"<br>– Rested: " + color(NLrested.toFixed() + (NLrested>0 ? " (Fatigued)" : ""), -NLrested);
 	
 	if (NLleft >= hp)
 		tresult.innerHTML += "<p class='warn'>Unconscious";
@@ -257,9 +257,10 @@ function travelparse()
 	
 	tresult.innerHTML += "<p><b>Forced March</b>" +
 		"<br>– Hours: " + forcedMarch +
+		(forcedMarch > 0 ?
 		"<br>– Checks: " + checks.join(", ") +
 		"<br>– Damage: " + forcedMarch + " – " + (forcedMarch*6) +
-		"<br>– Left: " + (healPerHour < 6 ? (Math.max(0,(forcedMarch-healPerHour)) + " – " + (forcedMarch * (6-healPerHour))) : 0);
+		"<br>– Left: " + (healPerHour < 6 ? (Math.max(0,(forcedMarch-healPerHour)) + " – " + (forcedMarch * (6-healPerHour))) : 0) : "");
 	
 	tresult.innerHTML += "<p><b>Optimal forced march</b>" + (hours == optForcedMarchDaily ? " (IN USE!)" : "") +
 		"<br>– Hours: " + optForcedMarch.toFixed() +
