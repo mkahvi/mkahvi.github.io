@@ -255,10 +255,12 @@ function travelparse()
 		"<br>– Damage: " + forcedMarch + " – " + (forcedMarch*6) +
 		"<br>– Left: " + (healPerHour < 6 ? (Math.max(0,(forcedMarch-healPerHour)) + " – " + (forcedMarch * (6-healPerHour))) : 0);
 	
-	tresult.innerHTML += "<p><b>Optimal forced march</b>" +
+	var optForcedMarchTotal = (8 + optForcedMarch);
+	tresult.innerHTML += "<p><b>Optimal forced march</b>" + (hours == optForcedMarchTotal ? " (IN USE!)" : "") +
 		"<br>– Hours: " + optForcedMarch.toFixed() +
 		"<br>– Hustling: " + (hd>6 ? "Yes" : "No") +
-		"<br>– Total travel time: " + (8 + optForcedMarch);
+		"<br>– Total travel time: " + optForcedMarchTotal + (hours != optForcedMarchTotal ? 
+		"<br>– <a href='#travel="+days+"d"+optForcedMarchTotal+"h"+hp+"hp"+hd+"hd'>Do this!</a>" : "");
 }
 
 function color(str, color)
