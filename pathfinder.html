@@ -31,6 +31,51 @@
 			<div class='quote repel padding' style='visibility: hidden;' id='tresult'></div>
 			</form>
 		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='craft' href='#craft'>Craft</a> calculator</b> <sup>[<a href='#top'>top</a>]</sup>
+			<form id='craftform' method='post' action='#' onsubmit='return false;'>
+			<p>Craft check: <input type='text' name='check' size='3' maxlength='3'>
+			<input type='submit' value='Calculate' onclick='craftparse()'>
+			<p>Core crafting<br>
+
+			Cost (GP): <input type='text' name='cost' size='4' maxlength='8'>
+			DC: <input type='text' name='dc' size='3' maxlength='3'>
+			Limit: <input type='text' name='limit' size='4' maxlength='4'>
+			<p>
+			Making Craft Work (alternative rules)<br>
+			Complexity:
+			<select name='complexity'>
+				<option value='10'>Very complex</option>
+				<option value='8'>Complex</option>
+				<option value='4' selected>Moderate</option>
+				<option value='2'>Simple</option>
+				<option value='0'>Very simple</option>
+			</select>
+			Extra DC: <input type='text' name='gmdc' size='3' maxlength='3'>
+			Material:
+			<select name='material'>
+				<option value='0' selected>Ordinary</option>
+				<option value='2'>Darkwood</option>
+				<option value='2'>Alchemical silver</option>
+				<option value='2'>Cold iron</option>
+				<option value='4'>Mithral</option>
+				<option value='4'>Dragonhide</option>
+				<option value='6'>Adamantine</option>
+			</select>
+			Masterwork: <input type='checkbox' name='mw'>
+			<div class='quote repel padding' style='visibility: hidden;' id='cresult'></div>
+			<div class='repel padding'>
+			<p><b>Complexity:</b> (GM decides)<br>
+			Very complex – Complicated or intricate objects – e.g. clockworks, antitoxins, sunrods, vehicles, etc.<br>
+			Complex – Moving parts or decorative bits – e.g. crossbows, guns, most types of armor, locks, etc.<br>
+			Moderate – Diverse materials – e.g. most weapons, shields, simple locks, hide armor, etc.<br>
+			Simple – One material with specialized shape – e.g. clothing, backpack, simple weapons, etc.<br>
+			Very simple – One simple piece – e.g. staves, crowbars, etc.
+			<p>8 hour workday assumed.
+			</div>
+			</form>
+		</div>
 	</div>
 	
 	<script src='pathfinder.js' async='false' defer='false'>

@@ -4,22 +4,28 @@
 // dierolling
 
 var tresult = document.getElementById('tresult');
+var cresult = document.getElementById('cresult');
 
 /*
 var form = document.getElementById('form');
 */
 
-var travelform;
-var query;
+var travelform = document.getElementById('travelform');
+var craftform = document.getElementById('craftform');;
 
 // repeats above
 window.onload = setup_pathfinder;
 function setup_pathfinder()
 {
-	if (tresult == null) {
+	if (tresult == null)
 		tresult = document.getElementById('tresult');
-	}
-	travelform = document.getElementById('travelform');
+	if (travelform == null)
+		travelform = document.getElementById('travelform');
+	
+	if (cresult == null)
+		cresult = document.getElementById('cresult');
+	if (craftform == null)
+		craftform = document.getElementById('craftform');
 	
 	if (travelform.days.value.length == 0 && travelform.hours.value.length == 0)
 	{
@@ -47,16 +53,16 @@ function setup_pathfinder()
 
 function hashChanged()
 {
-	var n = decodeURIComponent(window.location.hash).split('travel=')[1];
-	if (n)
+	var travelquery = decodeURIComponent(window.location.hash).split('travel=', 2)[1];
+	if (travelquery)
 	{
-		query = n;
+		travelquery = travelquery.split('&', 2)[0];
 		
 		//1d8h6 hp 1hd
 		// hps[0] hps[1]
-		var hps = query.split('hp');
+		var hps = travelquery.split('hp');
 		
-		if (query.search('f') != -1)
+		if (travelquery.search('f') != -1)
 			fastheal = true;
 		else
 			fastheal = false;
@@ -65,10 +71,10 @@ function hashChanged()
 		
 		var hs = hps[0].split('h');
 		var d = hs[0].split('d');
-		days = new Number(d[0]);
-		hours = new Number(d[1]);
-		hp = new Number(hs[1]);
-		//hd = new Number(hds[0]);
+		days = parseInt(d[0]);
+		hours = parseInt(d[1]);
+		hp = parseInt(hs[1]);
+		//hd = parseInt(hds[0]);
 		
 		//tresult.style.visibility = 'visible';
 		//tresult.innerHTML = "d: " + days + "<br>h: " + hours + "<br>hp: " + hp + "<br>hd: " + hd + "<br>f: " + fastheal;
@@ -80,6 +86,32 @@ function hashChanged()
 		//travelform.fastheal.checked = fastheal;
 		
 		travelparse();
+	}
+	
+	var craftquery = decodeURIComponent(window.location.hash).split('craft=', 2)[1];
+	if (craftquery)
+	{
+		craftquery = craftquery.split('&', 2)[0];
+		
+		if (craftquery.search('mwk') != -1)
+			craftform.mw.checked = true;
+		else
+			craftform.mw.checked = false;
+		
+		var checknum = craftquery.split('r', 2);
+		
+		craftform.check.value = checknum[0];
+		
+		var complexnum = checknum[1].split('c', 2);
+		craftform.complexity.selectedIndex = complexnum[0];
+		
+		var gmnum = complexnum[1].split('gm', 2);
+		craftform.gmdc.value = gmnum[0];
+		
+		var matnum = gmnum[1].split('t', 2);
+		craftform.material.selectedIndex = matnum[0];
+		
+		craftparse();
 	}
 }
 
@@ -97,28 +129,28 @@ var fastheal = false;
 
 function travelparse()
 {
-	days = new Number(travelform.days.value);
-	hours = new Number(travelform.hours.value);
-	hp = new Number(travelform.hp.value);
-	hd = new Number(travelform.hd.value);
+	days = parseInt(travelform.days.value);
+	hours = parseInt(travelform.hours.value);
+	hp = parseInt(travelform.hp.value);
+	hd = parseInt(travelform.hd.value);
 	//fastheal = travelform.fastheal.checked;
 	
 	tresult.style.visibility = 'visible';
 	
 	tresult.innerHTML = "";
 	
-	if (days.isNaN || hours.isNaN || hp.isNaN || hd.isNaN ||
+	if (isNaN(days) ||isNaN(hours) || isNaN(hp) || isNaN(hd) ||
 		days <= 0 || hours <= 0 || hours > 24 || hp <= 0 || hd <= 0)
 	{
 		tresult.innerHTML = "<p style='color:red;'>Malformed input.";
 		
-		if (days.isNaN || days <= 0)
+		if (isNaN(days) || days <= 0)
 			tresult.innerHTML += "<p>Days = 0 or NaN"
-		if (hours.isNaN || hours <= 0 || hours > 24)
+		if (isNaN(hours) || hours <= 0 || hours > 24)
 			tresult.innerHTML += "<p>Hours = 0 or NaN or >24"
-		if (hp.isNaN || hp <= 0)
+		if (isNaN(hp) || hp <= 0)
 			tresult.innerHTML += "<p>HP = 0 or NaN"
-		if (hd.isNaN || hd <= 0)
+		if (isNaN(hd) || hd <= 0)
 			tresult.innerHTML += "<p>HD = 0 or NaN"
 		
 		return;
@@ -269,6 +301,117 @@ function travelparse()
 		"<br>– Effective daily hours: " + optForcedMarchDailyEffective + 
 		"<br>– Boost: ×" + marchboost.toPrecision(3) +
 		"<br>– Days: " + optForcedMarchDays.toPrecision(3);
+}
+
+function craftparse()
+{
+	cresult.style.visibility = 'visible';
+	cresult.innerHTML = "";
+	
+	var check = parseInt(craftform.check.value);
+	var cost = parseFloat(craftform.cost.value);
+	var dc = parseInt(craftform.dc.value);
+	var limit = parseInt(craftform.limit.value);
+	var gmdc = parseInt(craftform.gmdc.value);
+	var complexity = parseInt(craftform.complexity.value);
+	var material = parseInt(craftform.material.value);
+	var mwk = craftform.mw.checked == true;
+	
+	if (isNaN(check) || check <= 0)
+		cresult.innerHTML += "<p class='warn'>Craft check result is missing.";
+	
+	// Core Rules
+	if (!isNaN(cost) && !isNaN(dc))
+	{
+		if (isNaN(limit) || limit <= 0) limit = 1;
+		
+		var corecheckdc = check * dc;
+		var corecost = cost*10;
+		var corespeed = Math.floor(check / dc);
+		var coreprogress = check * dc / corecost / 7;
+		var coredays = (1/coreprogress) / corespeed;
+		var corefinished = Math.max(1, Math.min(limit, Math.floor(coreprogress)));
+		
+		cresult.innerHTML += "<p><b>Core crafting results:</b><p>Check × DC: " + corecheckdc +
+			"<br>Goal: " + corecost +
+			"<br>Speed: ×" + corespeed +
+			"<br>Progress: " + coreprogress + " per day" +
+			"<br>Days: " + coredays +
+			"<br>Finished: " + corefinished;
+	}
+	
+	cresult.innerHTML += "<p><b>Making Craft Work results:</b>";
+	
+	// Make Crafting Work alternate rules
+	if (isNaN(gmdc) || gmdc == null) gmdc = 0;
+
+	var materialmod = 0;
+	var complexitymod = 0;
+	
+	var time = 0;
+	switch (+complexity) // for some dumb reason + is required
+	{
+		default:
+			cresult.innerHTML += "<p class='warn'>Complexity: No match";
+			break;
+		case 0:
+			time = 4;
+			break;
+		case 2:
+			time = 8; // 1 day
+			break;
+		case 4:
+			time = 2*8; // 2 days
+			break;
+		case 8:
+			time = 4*8; // 4 days
+			break;
+		case 10:
+			time = 7*8; // 1 week
+			break;
+	}
+	
+	var timemult = 1 + (mwk ? .5 : 0) + (material==0 ? 0 : .5);
+	time *= timemult;
+	
+	var finaldc = 10 + complexity + material + gmdc + (mwk?4:0);
+	
+	var speed = 1;
+	if ((check-finaldc) >= 10) speed = 4;
+	else if ((check-finaldc) >= 5) speed = 2;
+	
+	var finaltime = time/speed;
+	
+	if (finaldc > check)
+	{
+		cresult.innerHTML += "<p class='warn'>Crafting failed. Time wasted.";
+		if (finaldc > (check+5))
+			cresult.innerHTML += "Failed by 5 or more: Half the materials are ruined.";
+		if (finaldc > (check+10))
+			cresult.innerHTML += "Failed by 10 or more: Catastrophic results. Laboratory explodes or similar.";
+	}
+	
+	time /= speed;
+	
+	var days = Math.floor(time/8);
+	var hours = time - (days*8);
+	
+	cresult.innerHTML += "Complexity: +" + complexity +
+		"<br>Material: +" + material +
+		"<br>Extra DC: " + plusify(gmdc) +
+		"<br>Masterwork: " + (mwk?"Yes +4":"No") +
+		"<p>Final DC: " + finaldc + (finaldc <= check ? " – <b>Success!</b>" : "");
+
+	cresult.innerHTML += "<p>Time spent: " + Math.floor(time/8) + " days, " + hours + " hours." +
+		"<br>Speed: ×" + speed;
+	
+	// update URL
+	window.location.hash = "craft="+check+"r"+craftform.complexity.selectedIndex+"c"+gmdc+"gm"+craftform.material.selectedIndex+"t"+(mwk==true?"mwk":"");
+}
+
+function plusify(num)
+{
+	return (num >= 0 ? "+" + num : num);
 }
 
 function color(str, color)
