@@ -66,6 +66,7 @@ function setup_pathfinder()
 function historyPop(event)
 {
 	var ev = event.state;
+	if (ev == null) return; // no state to restore
 	if ("Query" in ev)
 	{
 	switch (ev.Query)
