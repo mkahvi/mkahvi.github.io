@@ -77,6 +77,43 @@
 			</div>
 			</form>
 		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='dpr' href='#dpr'>Damage</a> per round</b> <sup>[<a href='#top'>top</a>]</sup>
+			<form id='dprform' method='post' action='#' onsubmit='return false;'>
+			<p>Base Attack: <input type='text' name='bab' id='tbab' width='3' size='3' maxlength='3' />
+			– Bonus: <input type='text' name='atkbonus' id='tatkbonus' width='3' size='3' maxlength='6' />
+			– Extra Attacks: <input type='text' name='xatk' id='txatk' width='2' size='2' maxlength='2' title="At full BAB" />
+			<br/>
+			Critical threat: <input type='text' name='criticalthreat' id='tthreat' width='3' size='3' maxlength='5' />
+			– Multiplier: <input type='text' name='criticalmult' id='tmult' width='3' size='3' maxlength='5' /><br/>
+			Base damage: <input type='text' name='damage' id='tdmg' width='4' size='4' maxlength='8' />
+			– Bonus: <input type='text' name='dmgbonus' id='tdmgbonus' width='4' size='4' maxlength='8' />
+			– Precision: <input type='text' name='precisiondmg' id='tprecision' width='4' size='4' maxlength='8' title="Not multiplied on crit."/><br/>
+			vs Armor: <input type='text' name='armor' id='tarmor' width='4' size='4' maxlength='6' />
+			<input type='submit' value='Calculate' onclick='dprparse()' />
+			<div class='quote repel padding' style='visibility: hidden;' id='dresult'></div>
+			</form>
+		</div>
+		
+		<div class='chunk padding repel'>
+			<p><b><a id='passiveperception' href='#passiveperception'>Passive Perception</a></b> (Custom) <sup>[<a href='#top'>top</a>]</sup>
+			<form id='perceptionform' method='post' action='#' onsubmit='return false;'>
+			Level: <input type='text' name='level' width='4' size='4'>
+			Ability (Wis): <input type='text' name='ability' width='4' size='4'>
+			Ranks: <input type='text' name='ranks' width='4' size='4'>
+			Class skill: <input type='checkbox' name='class'>
+			Bonuses: <input type='text' name='bonus' width='4' size='4'>
+			</form>
+			8 + Ability + (3 if Class Skill and at least 1 rank) + (1 if ranks > 0) + (ranks/5) + (level/4)
+			<br>One can assume this to range from about 8 to 18 with average around 10 to 13 for level &lt;15 games.
+			</p>
+			
+			<p>
+			For comparison D&amp;D 5e passive perception is as follows:
+			<br>10 + Wisdom Modifier + Wisdom Proficiency Bonus + Bonuses
+			<p>One can assume this to range from 7 to 18 with average of about 10 to 14
+		</div>
 	</div>
 	
 	<script src='pathfinder.js' async='false' defer='false'>

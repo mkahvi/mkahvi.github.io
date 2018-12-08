@@ -2,7 +2,7 @@
 // last updated: 2018-07-04
 
 // dierolling
-
+var dresult = document.getElementById('dresult');
 var tresult = document.getElementById('tresult');
 var cresult = document.getElementById('cresult');
 
@@ -12,6 +12,7 @@ var form = document.getElementById('form');
 
 var travelform = document.getElementById('travelform');
 var craftform = document.getElementById('craftform');;
+var dprform = document.getElementById('dprform');;
 
 // repeats above
 window.onload = setup_pathfinder;
@@ -21,6 +22,12 @@ function setup_pathfinder()
 		tresult = document.getElementById('tresult');
 	if (travelform == null)
 		travelform = document.getElementById('travelform');
+	
+	if (dresult == null)
+		dresult = document.getElementById('dresult');
+	if (dprform == null)
+		dprform = document.getElementById('dprform');
+	
 	
 	if (cresult == null)
 		cresult = document.getElementById('cresult');
@@ -112,6 +119,40 @@ function hashChanged()
 		craftform.material.selectedIndex = matnum[0];
 		
 		craftparse();
+	}
+	
+	var dprquery = decodeURIComponent(window.location.hash).split('dpr=', 2)[1];
+	if (dprquery)
+	{
+		// dpr=+8+2-damage-1d8+2-crit-19x2-precision-0-vs-22
+		attackt = dprquery.split('-damage-', 2)[0];
+		xattackt = attackt.split('-xtk-', 2);
+		attackt = xattackt[0];
+		extraattacks = parseInt(xattackt[1]);
+		if (isNaN(extraattacks)) extraattacks = 0;
+		bab = attackt.split('+', 2)[0];
+		atkbonus = attackt.split('+', 2)[1];
+		damaget = dprquery.split('-damage-', 2)[1].split('-crit-', 2)[0];
+		damage = damaget.split('+', 2)[0];
+		dmgbonus = damaget.split('+', 2)[1];
+		crit = dprquery.split('-crit-', 2)[1].split('-precision-', 2)[0];
+		critt = crit.split('x', 2);
+		criticalthreat = parseInt(critt[0]);
+		criticalmult = parseInt(critt[1]);
+		precisiondamage = dprquery.split('-precision-', 2)[1].split('-vs-', 2)[0];
+		armor = parseInt(dprquery.split('-vs-', 2)[1]);
+		
+		dprform.bab.value = bab;
+		dprform.atkbonus.value = atkbonus;
+		dprform.xatk.value = extraattacks;
+		dprform.damage.value = damage;
+		dprform.dmgbonus.value = dmgbonus;
+		dprform.criticalthreat.value = criticalthreat;
+		dprform.criticalmult.value = criticalmult;
+		dprform.precisiondmg.value = precisiondamage;
+		dprform.armor.value = armor;
+		
+		dprparse();
 	}
 }
 
@@ -303,6 +344,194 @@ function travelparse()
 		"<br>– Days: " + optForcedMarchDays.toPrecision(3);
 }
 
+// DPR / Damage Per Round
+function dprparse()
+{
+	damage = dprform.damage.value;
+	if (damage.length == 0) damage = "1d3"; // punch
+	bab = parseInt(dprform.bab.value);
+	if (isNaN(bab)) bab = 0; // level 1 non-martial
+	atkbonus = parseInt(dprform.atkbonus.value);
+	if (isNaN(atkbonus)) atkbonus = 0; // 
+	extraattacks = parseInt(dprform.xatk.value);
+	if (isNaN(extraattacks)) extraattacks = 0;
+	dmgbonus = parseInt(dprform.dmgbonus.value);
+	if (isNaN(dmgbonus)) dmgbonus = 0;
+	criticalthreat = parseInt(dprform.criticalthreat.value);
+	if (isNaN(criticalthreat)) criticalthreat = 20; // default
+	criticalmultiplier = parseInt(dprform.criticalmult.value);
+	if (isNaN(criticalmultiplier)) criticalmultiplier = 2; // default
+	precisiondamage = dprform.precisiondmg.value;
+	armor = parseInt(dprform.armor.value);
+	if (isNaN(armor)) armor = 16;
+	
+	// TODO: Power Attack w/ Furious Focus (first attack without penalty)
+	// TODO: Bonuses to critical confirm (e.g. Critical Focus feat)
+	
+	dresult.style.visibility = 'visible';
+	
+	dresult.innerHTML = "";
+	
+	if (isNaN(bab) || isNaN(atkbonus) || isNaN(dmgbonus) || isNaN(criticalthreat) || isNaN(criticalmultiplier) || isNaN(armor) ||
+		bab < 0 || criticalthreat > 20 || criticalthreat < 1 || criticalmultiplier < 1 || criticalmultiplier > 5 || armor < 0 || armor > 900)
+	{
+		dresult.innerHTML = "<p style='color:red;'>Malformed input.";
+		return;
+	}
+	
+	// BOUNDING
+	if (criticalmultiplier < 1) criticalmultiplier=1;
+	else if (criticalmultiplier > 10) criticalmultiplier = 10;
+	if (criticalthreat > 20) criticalthreat = 20;
+	else if (criticalthreat < 1) criticalthreat = 1;
+	
+	// update URL
+	window.location.hash = "dpr="+bab+"+"+atkbonus+"-xtk-"+extraattacks+"-damage-"+damage+"+"+dmgbonus+"-crit-"+criticalthreat+"x"+criticalmultiplier+"-precision-"+precisiondamage+"-vs-"+armor;
+	
+	critmax = 0;
+	var drv = ParseDieAvg(damage+"+"+dmgbonus);
+	max = drv.Maximum;
+	avg = drv.Average;
+	min = drv.Minimum;
+	
+	pmax = 0;
+	pavg = 0;
+	pstr = "";
+	if (precisiondamage.length > 0)
+	{
+		var prv = ParseDieAvg(precisiondamage);
+		pmax = prv.Maximum;
+		pavg = prv.Average;
+		pmin = prv.Minimum;
+		staticdamage = (pmin == pmax);
+		
+		pstr = "; Precision: " + pavg + (staticdamage ? "" : (" (" + precisiondamage + ", range: "+pmin+ " – "+pmax+")"));
+	}
+	
+	critmax = max * criticalmultiplier;
+	critmin = min * criticalmultiplier;
+	critchance = (21-criticalthreat) * 0.05;
+	
+	staticdamage = (min == max);
+	
+	dresult.innerHTML+= "<p><b>Basic</b> Attack Breakdown:<br>Average damage: <b>" + avg.toFixed(1) + "</b> (" + damage+"+"+dmgbonus +
+		(staticdamage ? "" : (", range: "+min + " – "+max))+")"+pstr+"<br/>" +
+		"Critical potential (×"+criticalmultiplier+", "+criticalthreat+"–20, "+(critchance*100.0).toFixed(0)+"%): "+((critmin+critmax)/2).toFixed(1)+ " ("+critmin+" – "+critmax+")";
+	
+	// Multiple Attacks
+	var iteratives = new Array();
+	iteratives.push(bab);
+	
+	// Haste, UnMonk Flurry & Ki Extra Attack, etc.
+	if (extraattacks > 0)
+	{
+		xatk = extraattacks;
+		while (xatk > 0)
+		{
+			iteratives.push(bab);
+			xatk--;
+		}
+	}
+	
+	// BAB Iteratives
+	tbab = bab;
+	while (tbab>5)
+	{
+		tbab -= 5;
+		iteratives.push(tbab);
+	}
+	var iterout = new Array();
+	iteratives.forEach(function(tbab) {
+		iterout.push(tbab+atkbonus);
+	});
+
+	//dresult.innerHTML += "<p>Iterative attacks: +" + iterout.join(', +') + "<br/>against AC: " + armor;
+	
+	var chanceout = new Array();
+	var chances = new Array();
+	iterout.forEach(function(tbab) {
+		var chance = (21-(armor-tbab))*0.05;
+		truechance = Math.max(0.05, chance);
+		chances.push((truechance * 100.0).toFixed(0));
+		chanceout.push(Attack(tbab, chance));
+	});
+	
+	totalavg = 0;
+	totalcrit = 0;
+	var out = new Array();
+	var rolls = new Array();
+	chanceout.forEach(function(atk) {
+		rollneeded = Math.min((armor-atk.attack), 20);
+		var on20 = rollneeded == 20 ? true : false; // hits only on nat 20
+		rolls.push((on20?"=":"≥")+rollneeded);
+		truechance = Math.max(atk.chance, 0.05);  // allow natural 20 to always hit
+		truechance = Math.min(1.0, truechance); // don't allow over 100% chance to hit as this is nonsense and makes DPR math faulty
+		
+		out.push("+"+atk.attack + " (d20"+(on20?"=":"≥")+ rollneeded + ", "+(truechance*100).toFixed(0)+"%)");
+		
+		totalavg += avg * truechance;
+		
+		// Critical Hit
+		// multiply crit chance with hit chance (critical chance and critical confirm chance)
+		// Multiply damage by crit multiplier
+		if (criticalmultiplier > 1)
+			totalcrit += (avg*(criticalmultiplier-1)) * (Math.min(critchance, truechance) * truechance);
+	});
+	
+	/*
+	dresult.innerHTML += "<p>Attack breakdown: <br>" +
+		" – Basic: +"+iterout.join(', +') +
+		"<br/> – Chances: " + chances.join('%, ') + "%" +
+		"<br/>– Rolls: " + rolls.join(', ');
+	*/
+	
+	dresult.innerHTML += "<p>Attacks: " + out.join(', ');
+	
+	dresult.innerHTML += "<p><b>Average</b> damage output: <b>" + totalavg.toFixed(2) + "</b>, bonus from criticals: " + totalcrit.toFixed(2) +
+		" – Total: <b>" + (totalavg+totalcrit).toFixed(2) + "</b>" +
+		"<br/>– <b>Maximum</b> damage output: " + (max*iteratives.length) + ", with criticals: " + (max*(criticalmultiplier)*iteratives.length);
+}
+
+function ParseDieAvg(dieroll)
+{
+	tmprx = dieroll.split(/(?=[-\+])/g);
+	_avg = 0;
+	_max = 0;
+	_min = 0;
+	for (i in tmprx) {
+		wst = tmprx[i];
+		positive = !(wst[0] == '-');
+		if (wst[0] == '-' || wst[0] == '+') {
+			wst = wst.substr(1);
+		}
+		ws = wst.split('d',2);
+		nrcount = parseInt(ws[0]);
+		nrdie = parseInt(ws[1]);
+		
+		if (!isNaN(nrcount)) { // discard non-numbers and pointless zeroes
+			if (!isNaN(nrdie)) // .e.g +2d4
+			{
+				_avg += (nrcount*((nrdie+1.0)/2.0));
+				_max += (nrcount*nrdie);
+				_min += nrcount;
+			}
+			else // e.g. +2
+			{
+				_avg += nrcount;
+				_max += nrcount;
+				_min += nrcount;
+			}
+		}
+	}
+	return {Average: _avg, Maximum: _max, Minimum: _min};
+}
+
+
+function Attack(attack_,chance_) {
+		return {attack: attack_, chance: chance_};
+}
+
+// CRAFTING
 function craftparse()
 {
 	cresult.style.visibility = 'visible';
