@@ -144,7 +144,7 @@ function dieparse(form)
 	// ROLL REPEATING
 	tmp = roll.split('#', 2);
 	if (tmp.length == 2) {
-		repeat = new Number(tmp[0]);
+		repeat = parseInt(tmp[0]);
 		if (isNaN(repeat)) {
 			repeat = 1;
 		}
@@ -165,8 +165,8 @@ function dieparse(form)
 			wst = wst.substr(1);
 		}
 		ws = wst.split('d',2);
-		nrcount = new Number(ws[0]);
-		nrdie = new Number(ws[1]);
+		nrcount = parseInt(ws[0]);
+		nrdie = parseInt(ws[1]);
 		if (!isNaN(nrcount)) { // discard non-numbers and pointless zeroes
 			rolls.push(new DieRoll(nrcount, nrdie, positive));
 		}
@@ -211,10 +211,10 @@ function roller(count, die)
 
 function dieroll(form)
 {
-	var die = new Number(form.die.value);
-	var mod = new Number(form.mod.value);
-	var count = new Number(form.count.value);
-	var repeat = new Number(form.repeat.value);
+	var die = parseInt(form.die.value);
+	var mod = parseInt(form.mod.value);
+	var count = parseInt(form.count.value);
+	var repeat = parseInt(form.repeat.value);
 	var header = null;
 	
 	// enforce some sanity
@@ -339,9 +339,9 @@ function printdieroll(rolls, cond)
 	if (cond) {
 		var greaterthan=null, lesserthan=null;
 		if (cond[0] == '>') {
-			greaterthan = new Number(cond.substr(1));
+			greaterthan = parseInt(cond.substr(1));
 		} else if (cond[0] == '<') {
-			lesserthan = new Number(cond.substr(1));
+			lesserthan = parseInt(cond.substr(1));
 		}
 		if (greaterthan && total>greaterthan) {
 			dresult.innerHTML += ' <b>&gt; '+greaterthan+' match</b>';
@@ -386,7 +386,7 @@ function distances(form, origin)
 {
 	switch (origin) {
 		case 'cm': //form.centimeters.value
-			form.meters.value = cm2m(new Number(form.centimeters.value));
+			form.meters.value = cm2m(parseInt(form.centimeters.value));
 			form.kilometers.value = m2km(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -395,7 +395,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'm': //form.meters.value
-			form.centimeters.value = m2cm(new Number(form.meters.value));
+			form.centimeters.value = m2cm(parseInt(form.meters.value));
 			form.kilometers.value = m2km(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -404,7 +404,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'km': //form.kilometers.value
-			form.meters.value = km2m(new Number(form.kilometers.value));
+			form.meters.value = km2m(parseInt(form.kilometers.value));
 			form.centimeters.value = m2cm(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -413,7 +413,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'in': //form.inches.value
-			form.centimeters.value = in2cm(new Number(form.inches.value));
+			form.centimeters.value = in2cm(parseInt(form.inches.value));
 			form.meters.value = cm2m(form.centimeters.value);
 			form.kilometers.value = m2km(form.meters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -422,7 +422,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'ft': // form.feet.value
-			form.inches.value = ft2in(new Number(form.feet.value));
+			form.inches.value = ft2in(parseInt(form.feet.value));
 			form.centimeters.value = in2cm(form.inches.value);
 			form.meters.value = cm2m(form.centimeters.value);
 			form.kilometers.value = m2km(form.meters.value);
@@ -431,7 +431,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'mi': // form.miles.value
-			form.feet.value = mi2ft(new Number(form.miles.value));
+			form.feet.value = mi2ft(parseInt(form.miles.value));
 			form.inches.value = ft2in(form.feet.value);
 			form.centimeters.value = in2cm(form.inches.value);
 			form.meters.value = cm2m(form.centimeters.value);
@@ -440,7 +440,7 @@ function distances(form, origin)
 			form.nmiles.value = m2nmi(form.meters.value);
 			break;
 		case 'nmi': // form.nmiles.value
-			form.meters.value = nmi2m(new Number(form.nmiles.value));
+			form.meters.value = nmi2m(parseInt(form.nmiles.value));
 			form.kilometers.value = m2km(form.meters.value);
 			form.centimeters.value = m2cm(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
@@ -449,7 +449,7 @@ function distances(form, origin)
 			form.miles.value = ft2mi(form.feet.value);
 			break;
 		case 'yd': // form.yards.value
-			form.inches.value = yd2in(new Number(form.yards.value));
+			form.inches.value = yd2in(parseInt(form.yards.value));
 			form.feet.value = in2ft(form.inches.value);
 			form.centimeters.value = in2cm(form.inches.value);
 			form.meters.value = cm2m(form.centimeters.value);
@@ -467,20 +467,20 @@ function temperatures(form, origin)
 		case 'C':
 			// −273.15 to infinity
 			//form.celsius.value
-			var tn = new Number(form.celsius.value);
+			var tn = parseFloat(form.celsius.value);
 			form.kelvin.value = tn + 273.15;
 			form.fahrenheit.value = tn * (9/5) + 32;
 			break;
 		case 'F':
 			// −459.67 to infinity
-			var tn = new Number(form.fahrenheit.value);
+			var tn = parseFloat(form.fahrenheit.value);
 			if (isNaN(tn)) tn = NaN;
 			form.celsius.value = (tn - 32) * (5/9);
 			form.kelvin.value = tn + 459.67 * (5/9);
 			break;
 		case 'K':
 			// 0 to infinity
-			var tn = new Number(form.kelvin.value);
+			var tn = parseFloat(form.kelvin.value);
 			form.celsius.value = tn - 273.15;
 			form.fahrenheit.value = tn * (9/5) - 459.67;
 			break;
@@ -492,15 +492,15 @@ function circle(form, origin)
 	switch (origin)
 	{
 		case 'area':
-			form.diameter.value = Math.sqrt(new Number(form.area.value) / Math.PI) * 2;
+			form.diameter.value = Math.sqrt(parseFloat(form.area.value) / Math.PI) * 2;
 			form.circumference.value = Math.PI * form.diameter.value;
 			break;
 		case 'circ':
-			form.diameter.value = new Number(form.circumference.value) / Math.PI;
+			form.diameter.value = parseFloat(form.circumference.value) / Math.PI;
 			form.area.value = Math.PI * Math.pow(form.diameter.value / 2, 2);
 			break;
 		case 'dia':
-			form.area.value = Math.PI * Math.pow(new Number(form.diameter.value) / 2, 2);
+			form.area.value = Math.PI * Math.pow(parseFloat(form.diameter.value) / 2, 2);
 			form.circumference.value = Math.PI * form.diameter.value;
 			break;
 	}
@@ -633,7 +633,7 @@ function lcdform(form) {
 function gcdmultiform(form) {
 	var n = form.gcdin.value.split(',');
 	for (var i = 0; i < n.length; i++) {
-		n[i] = new Number(n[i]);
+		n[i] = parseInt(n[i]);
 		if (isNaN(n[i])) {
 			form.gcdout.value = '[' + n + ']'
 			return false;
@@ -648,8 +648,8 @@ function gcdmultiform(form) {
 
 
 function gcdform(form) {
-	var g1 = new Number(form.gcdin1.value);
-	var g2 = new Number(form.gcdin2.value);
+	var g1 = parseInt(form.gcdin1.value);
+	var g2 = parseInt(form.gcdin2.value);
 	
 	form.gcdout.value = '[' + g1 + ' / ' + g2 + ']';
 	if (isNaN(g1) || isNaN(g2)) { return; } // break out if bad input
@@ -661,7 +661,7 @@ function gcdform(form) {
 
 function fraction(form) {
 	// e.g. 0.75 = (75, 100)
-	var n = new Number(form.fractionin.value);
+	var n = parseInt(form.fractionin.value);
 	var shifts = 0;
 	
 	form.fractionout.value = '[' + n + ']'
@@ -677,8 +677,8 @@ function fraction(form) {
 }
 
 function simplify(form) {
-	var n1 = new Number(form.sin1.value);
-	var n2 = new Number(form.sin2.value);
+	var n1 = parseInt(form.sin1.value);
+	var n2 = parseInt(form.sin2.value);
 	// e.g. 108/24 = (108/gcd)/(24/gcd) = 9/2
 	
 	form.sout1.value = '[' + n1 + ']'
@@ -694,8 +694,8 @@ function simplify(form) {
 function simplifyfract(form) {
 	var n1,n2;
 	var tmp = form.fractionout.value.split(' / ')
-	n1 = new Number(tmp[0])
-	n2 = new Number(tmp[1])
+	n1 = parseInt(tmp[0])
+	n2 = parseInt(tmp[1])
 	
 	form.fractionout.value = '[' + n1 + '/' + n2 + ']'
 	if (isNaN(n1) || isNaN(n2)) { return; } // don't break on bad input
