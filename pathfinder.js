@@ -82,6 +82,7 @@ function historyPop(event)
 			dprform.criticalmult.value = ev.CriticalMultiplier;
 			dprform.precisiondmg.value = ev.PrecisionDamage;
 			dprform.armor.value = ev.Armor;
+			dprform.dr.value = ev.DR;
 			dprparse();
 			break;
 		case "Travel":
@@ -187,7 +188,8 @@ function hashChanged()
 		criticalthreat = parseInt(critt[0]);
 		criticalmult = parseInt(critt[1]);
 		precisiondamage = dprquery.split('-precision-', 2)[1].split('-vs-', 2)[0];
-		armor = parseInt(dprquery.split('-vs-', 2)[1]);
+		armor = parseInt(dprquery.split('-vs-', 2)[1].split('-dr-', 2)[0]);
+		dr = parseInt(dprquery.split('-dr-', 2)[1]);
 		
 		dprform.bab.value = bab;
 		dprform.atkbonus.value = atkbonus;
@@ -198,6 +200,7 @@ function hashChanged()
 		dprform.criticalmult.value = criticalmult;
 		dprform.precisiondmg.value = precisiondamage;
 		dprform.armor.value = armor;
+		dprform.dr.value = dr;
 		
 		dprparse();
 	}
@@ -414,6 +417,8 @@ function dprparse()
 	precisiondamage = dprform.precisiondmg.value;
 	armor = parseInt(dprform.armor.value);
 	if (isNaN(armor)) armor = 16;
+	dr = parseInt(dprform.dr.value);
+	if (isNaN(dr)) dr = 0;
 	
 	// TODO: Power Attack w/ Furious Focus (first attack without penalty)
 	// TODO: Bonuses to critical confirm (e.g. Critical Focus feat)
@@ -436,16 +441,21 @@ function dprparse()
 	else if (criticalthreat < 1) criticalthreat = 1;
 	
 	// update URL
-	nurl = "?dpr="+bab+"+"+atkbonus+"-xtk-"+extraattacks+"-damage-"+damage+"+"+dmgbonus+"-crit-"+criticalthreat+"x"+criticalmultiplier+"-precision-"+precisiondamage+"-vs-"+armor;
+	nurl = "?dpr="+bab+"+"+atkbonus+"-xtk-"+extraattacks+"-damage-"+damage+"+"+dmgbonus+"-crit-"+criticalthreat+"x"+criticalmultiplier+"-precision-"+precisiondamage+"-vs-"+armor + "-dr-" + dr;
 	nhash = "#dpr";
-	var querystate = {Query:'DPR', BAB:bab, AttackBonus:atkbonus, ExtraAttacks:extraattacks, Damage:damage, DamageBonus:dmgbonus, CriticalThreat:criticalthreat, CriticalMultiplier:criticalmultiplier, PrecisionDamage:precisiondamage,Armor:armor};
+	var querystate = {Query:'DPR', BAB:bab, AttackBonus:atkbonus, ExtraAttacks:extraattacks, Damage:damage, DamageBonus:dmgbonus, CriticalThreat:criticalthreat, CriticalMultiplier:criticalmultiplier, PrecisionDamage:precisiondamage,Armor:armor, DR:dr};
 	history.pushState(querystate, "DPR", nurl+nhash);
 	
 	critmax = 0;
-	var drv = ParseDieAvg(damage+"+"+dmgbonus);
+	var drv = ParseDieAvg(damage+"+"+dmgbonus+"-"+dr);
 	max = drv.Maximum;
 	avg = drv.Average;
 	min = drv.Minimum;
+	
+	if (max <= 0)
+	{
+		dresult.innerHTML+="<p>Damage Reduction fully nullifies all damage.";
+	}
 	
 	pmax = 0;
 	pavg = 0;
@@ -547,6 +557,9 @@ function dprparse()
 	maxcritdmg = max*(criticalmultiplier-1)*iteratives.length;
 	maxprcdmg = pmax*iteratives.length;
 	minprcdmg = pmin*iteratives.length;
+	drinfluence = dr/(max+dr);
+	nondrdmg = (totalavg+totalcrit+totalprc);
+	
 	dresult.innerHTML += "<p><b>Average</b> damage output: <b>" + totalavg.toFixed(2) + "</b>"+
 		(criticalmultiplier > 1 ? " + <i>Criticals</i>: " + totalcrit.toFixed(2) : "") +
 		(pavg > 0 ? " + <i>Precision</i>: " + (totalprc).toFixed(2) : "") +
@@ -557,7 +570,8 @@ function dprparse()
 		"<br/>– <b>Maximum</b> damage output: " + maxdmg +
 		(criticalmultiplier > 1 ? (" + <i>Criticals</i>: " + maxcritdmg) : "") +
 		(pavg > 0 ? (" + <i>Precision</i>: " + (maxprcdmg)) : "") +
-		" – Total: " + (maxdmg+maxcritdmg+maxprcdmg);
+		" – Total: " + (maxdmg+maxcritdmg+maxprcdmg) +
+		"<p>Damage Reduction nullifies in average: " + (drinfluence*100).toFixed(1) + "% the damage.";
 }
 
 function ParseDieAvg(dieroll)
@@ -577,6 +591,7 @@ function ParseDieAvg(dieroll)
 		nrdie = parseInt(ws[1]);
 		
 		if (!isNaN(nrcount)) { // discard non-numbers and pointless zeroes
+			if (!positive) nrcount = -nrcount;
 			if (!isNaN(nrdie)) // .e.g +2d4
 			{
 				_avg += (nrcount*((nrdie+1.0)/2.0));
@@ -591,6 +606,7 @@ function ParseDieAvg(dieroll)
 			}
 		}
 	}
+	
 	return {Average: _avg, Maximum: _max, Minimum: _min};
 }
 
