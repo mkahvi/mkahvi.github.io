@@ -469,7 +469,7 @@ function dprparse()
 	
 	dresult.innerHTML+= "<p><b>Basic</b> Attack Breakdown:<br>Average damage: <b>" + avg.toFixed(1) + "</b> (" + damage+"+"+dmgbonus +
 		(staticdamage ? "" : (", range: "+min + " – "+max))+")"+pstr+"<br/>" +
-		"Critical potential (×"+criticalmultiplier+", "+criticalthreat+"–20, "+(critchance*100.0).toFixed(0)+"%): "+((critmin+critmax)/2).toFixed(1)+ " ("+critmin+" – "+critmax+")";
+		"Critical potential (×"+criticalmultiplier+", "+criticalthreat+(criticalthreat<20?"–20":"")+", "+(critchance*100.0).toFixed(0)+"%): "+((critmin+critmax)/2).toFixed(1)+ " ("+critmin+" – "+critmax+")";
 	
 	// Multiple Attacks
 	var iteratives = new Array();
