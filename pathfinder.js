@@ -82,7 +82,7 @@ function historyPop(event)
 			dprform.criticalmult.value = ev.CriticalMultiplier;
 			dprform.precisiondmg.value = ev.PrecisionDamage;
 			dprform.armor.value = ev.Armor;
-			dresult.innerHTML+="Retrieved from historyState";
+			dprparse();
 			break;
 		case "Travel":
 			// {Query:'Travel', Days:days, Hours:hours, HP:hp, HD:hd, Fastheal:fastheal};
@@ -90,6 +90,7 @@ function historyPop(event)
 			travelform.hours.value = ev.Hours;
 			travelform.hp.value = ev.HP;
 			travelform.hd.value = ev.HD;
+			travelparse();
 			break;
 		case "Craft":
 			// {Query:'Craft', Check:check, Complexity:craftform.complexity.selectedIndex, ExtraDC:gmdc, Material:craftform.material.selectedIndex, Masterwork:mwk};
@@ -98,6 +99,7 @@ function historyPop(event)
 			craftform.complexity.selectedIndex = ev.Complexity;
 			craftform.gmdc.value = ev.ExtraDC;
 			craftform.material.selectedIndex = ev.Material;
+			craftparse();
 			break;
 		default:
 			// REPORT ERROR
