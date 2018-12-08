@@ -459,6 +459,7 @@ function dprparse()
 	
 	pmax = 0;
 	pavg = 0;
+	pmin = 0;
 	pstr = "";
 	if (precisiondamage.length > 0)
 	{
@@ -571,7 +572,7 @@ function dprparse()
 		(criticalmultiplier > 1 ? (" + <i>Criticals</i>: " + maxcritdmg) : "") +
 		(pavg > 0 ? (" + <i>Precision</i>: " + (maxprcdmg)) : "") +
 		" – Total: " + (maxdmg+maxcritdmg+maxprcdmg) +
-		"<p>Damage Reduction nullifies in average: " + (drinfluence*100).toFixed(1) + "% the damage.";
+		(dr > 0 ? ("<p>Damage Reduction nullifies in average: " + (drinfluence*100).toFixed(1) + "% the damage.") : "");
 }
 
 function ParseDieAvg(dieroll)
