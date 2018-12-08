@@ -56,15 +56,60 @@ function setup_pathfinder()
 	{
 		window.onhashchange = hashChanged;
 	}
+	
+	if ("onpopstate" in window)
+	{
+		window.onpopstate = historyPop;
+	}
+}
+
+function historyPop(event)
+{
+	var ev = event.state;
+	if ("Query" in ev)
+	{
+	switch (ev.Query)
+	{
+		case "DPR":
+			// {Query:'DPR', BAB:bab, AttackBonus:atkbonus, ExtraAttacks:extraattacks, Damage:damage, DamageBonus:dmgbonus, CriticalThreat:criticalthreat, CriticalMultiplier:criticalmultiplier, PrecisionDamage:precisiondamage,Armor:armor};
+			dprform.bab.value = ev.BAB;
+			dprform.atkbonus.value = ev.AttackBonus;
+			dprform.xatk.value = ev.ExtraAttacks;
+			dprform.damage.value = ev.Damage;
+			dprform.dmgbonus.value = ev.DamageBonus;
+			dprform.criticalthreat.value = ev.CriticalThreat;
+			dprform.criticalmult.value = ev.CriticalMultiplier;
+			dprform.precisiondmg.value = ev.PrecisionDamage;
+			dprform.armor.value = ev.Armor;
+			dresult.innerHTML+="Retrieved from historyState";
+			break;
+		case "Travel":
+			// {Query:'Travel', Days:days, Hours:hours, HP:hp, HD:hd, Fastheal:fastheal};
+			travelform.days.value = ev.Days;
+			travelform.hours.value = ev.Hours;
+			travelform.hp.value = ev.HP;
+			travelform.hd.value = ev.HD;
+			break;
+		case "Craft":
+			// {Query:'Craft', Check:check, Complexity:craftform.complexity.selectedIndex, ExtraDC:gmdc, Material:craftform.material.selectedIndex, Masterwork:mwk};
+			craftform.mw.checked = ev.Mastework;
+			craftform.check.value = ev.Check;
+			craftform.complexity.selectedIndex = ev.Complexity;
+			craftform.gmdc.value = ev.ExtraDC;
+			craftform.material.selectedIndex = ev.Material;
+			break;
+		default:
+			// REPORT ERROR
+			break;
+	}
+	}
 }
 
 function hashChanged()
 {
-	target = null;
-	var travelquery = decodeURIComponent(window.location.hash).split('travel=', 2)[1];
+	var travelquery = decodeURIComponent(window.location.search).split('?travel=', 2)[1];
 	if (travelquery)
 	{
-		target = "travel";
 		travelquery = travelquery.split('&', 2)[0];
 		
 		//1d8h6 hp 1hd
@@ -97,16 +142,12 @@ function hashChanged()
 		travelparse();
 	}
 	
-	var craftquery = decodeURIComponent(window.location.hash).split('craft=', 2)[1];
+	var craftquery = decodeURIComponent(window.location.search).split('?craft=', 2)[1];
 	if (craftquery)
 	{
-		target = "craft";
 		craftquery = craftquery.split('&', 2)[0];
 		
-		if (craftquery.search('mwk') != -1)
-			craftform.mw.checked = true;
-		else
-			craftform.mw.checked = false;
+		craftform.mw.checked = (craftquery.search('mwk') != -1);
 		
 		var checknum = craftquery.split('r', 2);
 		
@@ -124,10 +165,9 @@ function hashChanged()
 		craftparse();
 	}
 	
-	var dprquery = decodeURIComponent(window.location.hash).split('dpr=', 2)[1];
+	var dprquery = decodeURIComponent(window.location.search).split('?dpr=', 2)[1];
 	if (dprquery)
 	{
-		target = "dpr";
 		// dpr=+8+2-damage-1d8+2-crit-19x2-precision-0-vs-22
 		attackt = dprquery.split('-damage-', 2)[0];
 		xattackt = attackt.split('-xtk-', 2);
@@ -158,8 +198,6 @@ function hashChanged()
 		
 		dprparse();
 	}
-	
-	if (target != null) Scroll(target);
 }
 
 /*
@@ -208,7 +246,10 @@ function travelparse()
 	else if (hd > 20) tresult.innerHTML += "<p class='high tooltipped'>EPIC!";
 	
 	// update URL
-	window.location.hash = "travel="+days+"d"+hours+"h"+hp+"hp"+hd+"hd"+(fastheal?"f":"");
+	nurl = "?travel="+days+"d"+hours+"h"+hp+"hp"+hd+"hd"+(fastheal?"f":"");
+	nhash = "#travel";
+	var querystate = {Query:'Travel', Days:days, Hours:hours, HP:hp, HD:hd, Fastheal:fastheal};
+	history.pushState(querystate, "Travel", nurl+nhash);
 	
 	var resting = 8;
 	var preparing = 0;
@@ -392,7 +433,10 @@ function dprparse()
 	else if (criticalthreat < 1) criticalthreat = 1;
 	
 	// update URL
-	window.location.hash = "dpr="+bab+"+"+atkbonus+"-xtk-"+extraattacks+"-damage-"+damage+"+"+dmgbonus+"-crit-"+criticalthreat+"x"+criticalmultiplier+"-precision-"+precisiondamage+"-vs-"+armor;
+	nurl = "?dpr="+bab+"+"+atkbonus+"-xtk-"+extraattacks+"-damage-"+damage+"+"+dmgbonus+"-crit-"+criticalthreat+"x"+criticalmultiplier+"-precision-"+precisiondamage+"-vs-"+armor;
+	nhash = "#dpr";
+	var querystate = {Query:'DPR', BAB:bab, AttackBonus:atkbonus, ExtraAttacks:extraattacks, Damage:damage, DamageBonus:dmgbonus, CriticalThreat:criticalthreat, CriticalMultiplier:criticalmultiplier, PrecisionDamage:precisiondamage,Armor:armor};
+	history.pushState(querystate, "DPR", nurl+nhash);
 	
 	critmax = 0;
 	var drv = ParseDieAvg(damage+"+"+dmgbonus);
@@ -641,7 +685,10 @@ function craftparse()
 		"<br>Speed: ×" + speed;
 	
 	// update URL
-	window.location.hash = "craft="+check+"r"+craftform.complexity.selectedIndex+"c"+gmdc+"gm"+craftform.material.selectedIndex+"t"+(mwk==true?"mwk":"");
+	nurl = "?craft="+check+"r"+craftform.complexity.selectedIndex+"c"+gmdc+"gm"+craftform.material.selectedIndex+"t"+(mwk==true?"mwk":"");
+	nhash = "#craft";
+	var querystate = {Query:'Craft', Check:check, Complexity:craftform.complexity.selectedIndex, ExtraDC:gmdc, Material:craftform.material.selectedIndex, Masterwork:mwk};
+	history.pushState(querystate, "Craft", nurl+nhash);
 }
 
 function plusify(num)
@@ -658,12 +705,4 @@ function color(str, color)
 	if (stylecolor == null) return str;
 	
 	return "<span class='roll " + stylecolor + "'>" + str.toString() + "</span>";
-}
-
-function Scroll(target)
-{
-	const element = document.querySelector('#'+target);
-	const top = element.getBoundingClientRect().top;
-
-	window.scrollTo({ top, behavior: 'smooth' });
 }
