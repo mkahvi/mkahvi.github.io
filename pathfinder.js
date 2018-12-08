@@ -60,9 +60,11 @@ function setup_pathfinder()
 
 function hashChanged()
 {
+	target = null;
 	var travelquery = decodeURIComponent(window.location.hash).split('travel=', 2)[1];
 	if (travelquery)
 	{
+		target = "travel";
 		travelquery = travelquery.split('&', 2)[0];
 		
 		//1d8h6 hp 1hd
@@ -98,6 +100,7 @@ function hashChanged()
 	var craftquery = decodeURIComponent(window.location.hash).split('craft=', 2)[1];
 	if (craftquery)
 	{
+		target = "craft";
 		craftquery = craftquery.split('&', 2)[0];
 		
 		if (craftquery.search('mwk') != -1)
@@ -124,6 +127,7 @@ function hashChanged()
 	var dprquery = decodeURIComponent(window.location.hash).split('dpr=', 2)[1];
 	if (dprquery)
 	{
+		target = "dpr";
 		// dpr=+8+2-damage-1d8+2-crit-19x2-precision-0-vs-22
 		attackt = dprquery.split('-damage-', 2)[0];
 		xattackt = attackt.split('-xtk-', 2);
@@ -154,6 +158,8 @@ function hashChanged()
 		
 		dprparse();
 	}
+	
+	if (target != null) Scroll(target);
 }
 
 /*
@@ -652,4 +658,12 @@ function color(str, color)
 	if (stylecolor == null) return str;
 	
 	return "<span class='roll " + stylecolor + "'>" + str.toString() + "</span>";
+}
+
+function Scroll(target)
+{
+	const element = document.querySelector('#'+target);
+	const top = element.getBoundingClientRect().top;
+
+	window.scrollTo({ top, behavior: 'smooth' });
 }
