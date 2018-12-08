@@ -511,6 +511,7 @@ function dprparse()
 	
 	totalavg = 0;
 	totalcrit = 0;
+	totalprc = 0;
 	var out = new Array();
 	var rolls = new Array();
 	chanceout.forEach(function(atk) {
@@ -523,6 +524,7 @@ function dprparse()
 		out.push("+"+atk.attack + " (d20"+(on20?"=":"≥")+ rollneeded + ", "+(truechance*100).toFixed(0)+"%)");
 		
 		totalavg += avg * truechance;
+		totalprc += pavg * truechance;
 		
 		// Critical Hit
 		// multiply crit chance with hit chance (critical chance and critical confirm chance)
@@ -540,8 +542,10 @@ function dprparse()
 	
 	dresult.innerHTML += "<p>Attacks: " + out.join(', ');
 	
-	dresult.innerHTML += "<p><b>Average</b> damage output: <b>" + totalavg.toFixed(2) + "</b>, bonus from criticals: " + totalcrit.toFixed(2) +
-		" – Total: <b>" + (totalavg+totalcrit).toFixed(2) + "</b>" +
+	dresult.innerHTML += "<p><b>Average</b> damage output: <b>" + totalavg.toFixed(2) + "</b>"+
+		(criticalmultiplier > 1 ? ", bonus from <i>Criticals</i>: " + totalcrit.toFixed(2) : "") +
+		(pavg > 0 ? ", bonus from <i>Precision</i>: " + (totalprc).toFixed(2) : "") +
+		" – Total: <b>" + (totalavg+totalcrit+totalprc).toFixed(2) + "</b>" +
 		"<br/>– <b>Maximum</b> damage output: " + (max*iteratives.length) + ", with criticals: " + (max*(criticalmultiplier)*iteratives.length);
 }
 
