@@ -540,13 +540,24 @@ function dprparse()
 		"<br/>– Rolls: " + rolls.join(', ');
 	*/
 	
-	dresult.innerHTML += "<p>Attacks: " + out.join(', ');
+	dresult.innerHTML += "<p>Attacks (×"+iteratives.length+"): " + out.join(', ');
 	
+	maxdmg = max*iteratives.length;
+	mindmg = min*iteratives.length;
+	maxcritdmg = max*(criticalmultiplier-1)*iteratives.length;
+	maxprcdmg = pmax*iteratives.length;
+	minprcdmg = pmin*iteratives.length;
 	dresult.innerHTML += "<p><b>Average</b> damage output: <b>" + totalavg.toFixed(2) + "</b>"+
-		(criticalmultiplier > 1 ? ", bonus from <i>Criticals</i>: " + totalcrit.toFixed(2) : "") +
-		(pavg > 0 ? ", bonus from <i>Precision</i>: " + (totalprc).toFixed(2) : "") +
+		(criticalmultiplier > 1 ? " + <i>Criticals</i>: " + totalcrit.toFixed(2) : "") +
+		(pavg > 0 ? " + <i>Precision</i>: " + (totalprc).toFixed(2) : "") +
 		" – Total: <b>" + (totalavg+totalcrit+totalprc).toFixed(2) + "</b>" +
-		"<br/>– <b>Maximum</b> damage output: " + (max*iteratives.length) + ", with criticals: " + (max*(criticalmultiplier)*iteratives.length);
+		"<br/>– <b>Minimum</b> damage output: " + mindmg +
+		(pavg > 0 ? (" + <i>Precision</i>: " + (minprcdmg)) : "") +
+		" – Total: " + (mindmg+minprcdmg) + " – assuming all hit but deal minimum damage" +
+		"<br/>– <b>Maximum</b> damage output: " + maxdmg +
+		(criticalmultiplier > 1 ? (" + <i>Criticals</i>: " + maxcritdmg) : "") +
+		(pavg > 0 ? (" + <i>Precision</i>: " + (maxprcdmg)) : "") +
+		" – Total: " + (maxdmg+maxcritdmg+maxprcdmg);
 }
 
 function ParseDieAvg(dieroll)
