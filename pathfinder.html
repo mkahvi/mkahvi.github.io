@@ -98,13 +98,34 @@
 		</div>
 		
 		<div class='chunk padding repel'>
+			<p><b><a id='arithmancy' href='#arithmancy'>Arithmancy</a></b> (Occult Mysteries; PZO9269) <sup>[<a href='#top'>top</a>]</sup>
+			<form id='arithmancyform' method='post' action='#' onsubmit='return false'>
+			Level:
+			<select name='level'>
+				<option value='1' selected>1</option>
+				<option value='2'>2</option>
+				<option value='3'>3</option>
+				<option value='4'>4</option>
+				<option value='5'>5</option>
+				<option value='6'>6</option>
+				<option value='7'>7</option>
+				<option value='8'>8</option>
+				<option value='9'>9</option>
+			</select>
+			Name: <input type='name' name='name' />
+			<input type='submit' value='Calculate' onclick='arithmancy()' />
+			<div class='quote repel padding' style='visibility: hidden;' id='aresult'></div>
+			</form>
+		</div>
+		
+		<div class='chunk padding repel'>
 			<p><b><a id='passiveperception' href='#passiveperception'>Passive Perception</a></b> (Custom) <sup>[<a href='#top'>top</a>]</sup>
 			<form id='perceptionform' method='post' action='#' onsubmit='return false;'>
-			Level: <input type='text' name='level' width='4' size='4'>
-			Ability (Wis): <input type='text' name='ability' width='4' size='4'>
-			Ranks: <input type='text' name='ranks' width='4' size='4'>
-			Class skill: <input type='checkbox' name='class'>
-			Bonuses: <input type='text' name='bonus' width='4' size='4'>
+			Level: <input type='text' name='level' width='4' size='4' />
+			Ability (Wis): <input type='text' name='ability' width='4' size='4' />
+			Ranks: <input type='text' name='ranks' width='4' size='4' />
+			Class skill: <input type='checkbox' name='class' />
+			Bonuses: <input type='text' name='bonus' width='4' size='4' />
 			</form>
 			8 + Ability + (3 if Class Skill and at least 1 rank) + (1 if ranks > 0) + (ranks/5) + (level/4)
 			<br>One can assume this to range from about 8 to 18 with average around 10 to 13 for level &lt;15 games.

@@ -5,14 +5,16 @@
 var dresult = document.getElementById('dresult');
 var tresult = document.getElementById('tresult');
 var cresult = document.getElementById('cresult');
+var aresult = document.getElementById('aresult');
 
 /*
 var form = document.getElementById('form');
 */
 
 var travelform = document.getElementById('travelform');
-var craftform = document.getElementById('craftform');;
-var dprform = document.getElementById('dprform');;
+var craftform = document.getElementById('craftform');
+var dprform = document.getElementById('dprform');
+var arform = document.getElementById('arithmancyform');
 
 // repeats above
 window.onload = setup_pathfinder;
@@ -28,11 +30,15 @@ function setup_pathfinder()
 	if (dprform == null)
 		dprform = document.getElementById('dprform');
 	
-	
 	if (cresult == null)
 		cresult = document.getElementById('cresult');
 	if (craftform == null)
 		craftform = document.getElementById('craftform');
+	
+	if (aresult == null)
+		aresult = document.getElementById('aresult');
+	if (arithmancyform == null)
+		arithmancyform = document.getElementById('arithmancyform');
 	
 	if (travelform.days.value.length == 0 && travelform.hours.value.length == 0)
 	{
@@ -102,6 +108,11 @@ function historyPop(event)
 			craftform.material.selectedIndex = ev.Material;
 			craftparse();
 			break;
+		case "Arithmancy":
+			arithmancyform.level.selectedIndex = ev.Level - 1;
+			arithmancyform.name.value = ev.Name;
+			arithmancy();
+			break;
 		default:
 			// REPORT ERROR
 			break;
@@ -144,6 +155,18 @@ function hashChanged()
 		//travelform.fastheal.checked = fastheal;
 		
 		travelparse();
+	}
+	
+	var arithmancyquery = decodeURIComponent(window.location.search).split('#arithmancy=', 2)[1];
+	if (arithmancyquery)
+	{
+		aquery = arithmancyquery.split('-', 2);
+		level = parseInt(aquery[0]);
+		name = aquery[1];
+		
+		arithmancyform.level.selectedIndex = level-1;
+		arithmancyform.name.value = name;
+		arithmancy();
 	}
 	
 	var craftquery = decodeURIComponent(window.location.search).split('?craft=', 2)[1];
@@ -614,6 +637,92 @@ function ParseDieAvg(dieroll)
 
 function Attack(attack_,chance_) {
 		return {attack: attack_, chance: chance_};
+}
+
+// ARITHMANCY
+function arithmancy()
+{
+	aresult.style.visibility = 'visible';	
+	aresult.innerHTML = "";
+	
+	var level = parseInt(arithmancyform.level.value);
+	var name = arithmancyform.name.value.trim().toLowerCase();
+	
+	var dr = arithmancytranslate(name);
+	
+	while (dr > 9)
+		dr = digitalroot(dr)
+	
+	var DC = 15 + level + dr;
+	
+	aresult.innerHTML += "Spellcraft DC: <b>"+DC+"</b> (15 + " + level  + " [Lvl] + "+ dr + " [DR])</b>";
+	
+	// Push History State
+	nurl = "?arithmancy="+level+"-"+name;
+	nhash = "#arithmancy";
+	var querystate = {Query:'Arithmancy', Level:level, Name:name};
+	history.pushState(querystate, "Arithmancy", nurl+nhash);
+}
+
+function arithmancytranslate(name)
+{
+	var dr = 0;
+	
+	var i = name.length;
+	
+	//aresult.innerHTML += "<p>Length: " + i;
+		
+	//aresult.innerHTML += "<p>Values: ";
+	
+	while (i--)
+	{
+		ch = name.charAt(i);
+		var val = 0;
+		if (ch.match(/[ajs]/))
+			val = 1;
+		else if (ch.match(/[bkt]/))
+			val = 2;
+		else if (ch.match(/[clu]/))
+			val = 3;
+		else if (ch.match(/[dmv]/))
+			val = 4;
+		else if (ch.match(/[enw]/))
+			val = 5;
+		else if (ch.match(/[fox]/))
+			val = 6;
+		else if (ch.match(/[gpy]/))
+			val = 7;
+		else if (ch.match(/[hqz]/))
+			val = 8;
+		else if (ch.match(/[ir]/))
+			val = 9;
+		
+		dr += val;
+		
+		//aresult.innerHTML += ch + " ["+val+"] ";
+		// else nothing
+	}
+	
+	//aresult.innerHTML += "</p>";
+	
+	return dr;
+}
+
+function digitalroot(num)
+{
+	var str = num.toString();
+	var nnum = 0;
+	
+	var i = str.length;
+	while (i--)
+	{
+		ch = str.charAt(i);
+		nnum += parseInt(ch);
+	}
+	
+	//aresult.innerHTML += "<p>Digital root step: " + num + " to " + nnum+ "</p>";
+	
+	return nnum;
 }
 
 // CRAFTING
