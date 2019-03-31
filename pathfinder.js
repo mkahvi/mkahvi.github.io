@@ -159,7 +159,7 @@ function hashChanged()
 		travelparse();
 	}
 	
-	var arithmancyquery = decodeURIComponent(window.location.search).split('#arithmancy=', 2)[1];
+	var arithmancyquery = decodeURIComponent(window.location.search).split('?arithmancy=', 2)[1];
 	if (arithmancyquery)
 	{
 		aquery = arithmancyquery.split('-', 2);
