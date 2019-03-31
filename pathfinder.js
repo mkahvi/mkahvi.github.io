@@ -1,5 +1,7 @@
-﻿// by M.K.A. 2018
-// last updated: 2018-07-04
+﻿// by M.K.A. 2018–2019
+// last updated: 2019-03-31
+// previous updates:
+// * 2018-07-04
 
 // dierolling
 var dresult = document.getElementById('dresult');
