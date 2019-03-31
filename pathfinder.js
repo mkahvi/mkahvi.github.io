@@ -655,9 +655,9 @@ function arithmancy()
 	while (dr > 9)
 		dr = digitalroot(dr)
 	
-	var DC = 15 + level + dr;
+	var DC = 10 + level + dr;
 	
-	aresult.innerHTML += "Spellcraft DC: <b>"+DC+"</b> (15 + " + level  + " [Lvl] + "+ dr + " [DR])</b>";
+	aresult.innerHTML += "Spellcraft DC: <b>"+DC+"</b> (10 + " + level  + " [Lvl] + "+ dr + " [DR])</b>";
 	
 	// Push History State
 	nurl = "?arithmancy="+level+"-"+name;
