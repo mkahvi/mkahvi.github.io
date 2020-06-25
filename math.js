@@ -1,5 +1,7 @@
-﻿// by M.K.A. 2013–2017
-// last updated: 2017-05-25
+﻿// by M.K.A. 2013–2020
+// last updated: 2020-06-25 (fix for decimals in distances)
+// previous updates:
+// - 2017-05-25
 
 // dierolling
 
@@ -386,7 +388,7 @@ function distances(form, origin)
 {
 	switch (origin) {
 		case 'cm': //form.centimeters.value
-			form.meters.value = cm2m(parseInt(form.centimeters.value));
+			form.meters.value = cm2m(parseFloat(form.centimeters.value));
 			form.kilometers.value = m2km(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -395,7 +397,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'm': //form.meters.value
-			form.centimeters.value = m2cm(parseInt(form.meters.value));
+			form.centimeters.value = m2cm(parseFloat(form.meters.value));
 			form.kilometers.value = m2km(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -404,7 +406,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'km': //form.kilometers.value
-			form.meters.value = km2m(parseInt(form.kilometers.value));
+			form.meters.value = km2m(parseFloat(form.kilometers.value));
 			form.centimeters.value = m2cm(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -413,7 +415,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'in': //form.inches.value
-			form.centimeters.value = in2cm(parseInt(form.inches.value));
+			form.centimeters.value = in2cm(parseFloat(form.inches.value));
 			form.meters.value = cm2m(form.centimeters.value);
 			form.kilometers.value = m2km(form.meters.value);
 			form.feet.value = in2ft(form.inches.value);
@@ -422,7 +424,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'ft': // form.feet.value
-			form.inches.value = ft2in(parseInt(form.feet.value));
+			form.inches.value = ft2in(parseFloat(form.feet.value));
 			form.centimeters.value = in2cm(form.inches.value);
 			form.meters.value = cm2m(form.centimeters.value);
 			form.kilometers.value = m2km(form.meters.value);
@@ -431,7 +433,7 @@ function distances(form, origin)
 			form.yards.value = in2yd(form.inches.value);
 			break;
 		case 'mi': // form.miles.value
-			form.feet.value = mi2ft(parseInt(form.miles.value));
+			form.feet.value = mi2ft(parseFloat(form.miles.value));
 			form.inches.value = ft2in(form.feet.value);
 			form.centimeters.value = in2cm(form.inches.value);
 			form.meters.value = cm2m(form.centimeters.value);
@@ -440,7 +442,7 @@ function distances(form, origin)
 			form.nmiles.value = m2nmi(form.meters.value);
 			break;
 		case 'nmi': // form.nmiles.value
-			form.meters.value = nmi2m(parseInt(form.nmiles.value));
+			form.meters.value = nmi2m(parseFloat(form.nmiles.value));
 			form.kilometers.value = m2km(form.meters.value);
 			form.centimeters.value = m2cm(form.meters.value);
 			form.inches.value = cm2in(form.centimeters.value);
@@ -449,7 +451,7 @@ function distances(form, origin)
 			form.miles.value = ft2mi(form.feet.value);
 			break;
 		case 'yd': // form.yards.value
-			form.inches.value = yd2in(parseInt(form.yards.value));
+			form.inches.value = yd2in(parseFloat(form.yards.value));
 			form.feet.value = in2ft(form.inches.value);
 			form.centimeters.value = in2cm(form.inches.value);
 			form.meters.value = cm2m(form.centimeters.value);
