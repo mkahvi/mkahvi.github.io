@@ -1,7 +1,3 @@
---
-layout: page
-title: "Creative Editor"
---
 # Creative Editor
 
 **By**: MKAh (https://github.com/mkahvi)
