@@ -1,7 +1,6 @@
----
-title: Video Games
-description: Various video games that I feel are worthy of mentioning for one reason or another.
----
+# Video Games
+
+Various video games that I feel are worthy of mentioning for one reason or another.
 
 These lists may have duplicate entries, probably signaling that they are especially liked by me.
 

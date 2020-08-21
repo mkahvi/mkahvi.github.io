@@ -1,7 +1,6 @@
----
-title: Unsorted
-description: Not clearly identified good stuff
----
+# Unsorted
+
+Not clearly identified good stuff.
 
 | Game      | Developer | Released | Notes                                                        |
 | --------- | --------- | -------- | ------------------------------------------------------------ |

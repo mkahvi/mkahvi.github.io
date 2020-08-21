@@ -1,7 +1,6 @@
----
-title: Non-human main character
-description: Loading ammo into weapons one at a time with the loading interruptable with partial reloading.
----
+# Non-human main character
+
+…
 
 | Game      | Released                  | Notes               |
 | --------- | ------------------------- | ------------------- |

@@ -1,6 +1,4 @@
----
-title: Icons that I wish existed
----
+# Icons that I wish existed
 
 **By**: MKAh (Discord: Mana#4176)  
 

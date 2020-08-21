@@ -1,8 +1,6 @@
----
-title: Biotechnology
-description: Rampant use of biotechnology.
+# Biotechnology
 
----
+Rampant use of biotechnology.
 
 | Game  | Developer    | Released | Notes                                                        |
 | ----- | ------------ | -------- | ------------------------------------------------------------ |
