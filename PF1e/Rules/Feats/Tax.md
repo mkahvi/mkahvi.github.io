@@ -4,19 +4,23 @@
 
 ## Combined Feats
 
-| Feat         | Combined                                 | Rationale               |
-| ------------ | ---------------------------------------- | ----------------------- |
-| Power Strike | Power Attack, Piranha Strike, Deadly Aim | Why are these separate? |
-|              |                                          |                         |
-|              |                                          |                         |
+| Feat           | Combined                                                     | Rationale               |
+| -------------- | ------------------------------------------------------------ | ----------------------- |
+| Power Strike   | Power Attack, Piranha Strike, Deadly Aim                     | Why are these separate? |
+| Weapon Mastery | Weapon Focus and Greater Weapon Focus<br />You get greater 4 levels later, however. |                         |
+| Style Feats    | These grant the entire 3 feat chain.<br />First feat is gained immediately, the others every 2 levels after. |                         |
+|                |                                                              |                         |
 
 ## Changed Feats
 
-| Feat             | Changes                                                      | Rationale                     |
-| ---------------- | ------------------------------------------------------------ | ----------------------------- |
-| Combat Expertise | Intelligence requirement is removed from this and followup feats. | Too niche for no good reason. |
-| Stand Still      | Affects all threatened squares instead of only adjacent ones. |                               |
-|                  |                                                              |                               |
+| Feat              | Changes                                                      | Rationale                     |
+| ----------------- | ------------------------------------------------------------ | ----------------------------- |
+| Combat Expertise  | Intelligence requirement is removed from this and followup feats. | Too niche for no good reason. |
+| Stand Still       | Affects all threatened squares instead of only adjacent ones. |                               |
+| Fast Drinker      | Requirements removed.                                        |                               |
+| Extra Arcane Pool | Gain 3 points instead.                                       |                               |
+| Extra Ki Pool     | Gain 3 points instead.                                       |                               |
+| Quick sheath      | Requirements removed.                                        |                               |
 
 ## Freebies
 
