@@ -11,7 +11,7 @@
 | Rapier              | S or P                   | It’s not an estoc.                                      |
 |                     |                          |                                                         |
 | **Other**           |                          |                                                         |
-| Whip                | S o B                    | It's a firm rope, 1d3 bludgeoning seems perfectly fine. |
+| Whip                | S or B                   | It's a firm rope, 1d3 bludgeoning seems perfectly fine. |
 |                     |                          |                                                         |
 | **Eastern Weapons** |                          |                                                         |
 | Katana              |                          | Crit range one step smaller.                            |
