@@ -28,21 +28,22 @@ These are various items you’d want to have with you in no particular order.
 | Pen & paper                   | When didn't you want to scribble stick figures fighting great monsters? Has many uses besides fine art. | Charcoal, chalk, …                                           |
 | Food                          | Especially the kind that preserves well. Empty belly is not fun companion. | Foraging & hunting.                                          |
 | Walking stick                 | It’s surprisingly useful.                                    |                                                              |
-|                               |                                                              |                                                              |
+| Bedroll                       | Better sleep, or just headrest.                              | Blanket, cloak, large piece of fabric, furs, …               |
 |                               |                                                              |                                                              |
 
 
 ## Modern only
 
-| Item          | Explanation / Rationale / Description                        | Substitutes |
-| ------------- | ------------------------------------------------------------ | ----------- |
-| Flashlight    | Light is needed.                                             |             |
-| Batteries     | Flashlight won’t work without                                |             |
-| Power bank    |                                                              |             |
-| Solar charger | Electricity won’t last forever. This is to make your batteries last a little longer. |             |
-| Painkillers   |                                                              |             |
-| Antibiotics   |                                                              |             |
-| First aid kit |                                                              |             |
+| Item          | Explanation / Rationale / Description                        | Substitutes      |
+| ------------- | ------------------------------------------------------------ | ---------------- |
+| Flashlight    | Light is needed.                                             |                  |
+| Batteries     | Flashlight won’t work without                                |                  |
+| Power bank    |                                                              |                  |
+| Solar charger | Electricity won’t last forever. This is to make your batteries last a little longer. |                  |
+| Painkillers   |                                                              |                  |
+| Antibiotics   |                                                              |                  |
+| First aid kit |                                                              |                  |
+| Multitool     | It has many uses.                                            | Swiss army knife |
 
 ## Bonus items
 
