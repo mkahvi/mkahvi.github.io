@@ -2,6 +2,8 @@
 
 **By**: MKAh (Discord: Mana#4176)
 
+[Back to kits](./)
+
 These are various items you’d want to have with you in no particular order.
 
 ## Any era
