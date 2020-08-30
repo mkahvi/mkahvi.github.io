@@ -13,14 +13,16 @@
 
 ## Changed Feats
 
-| Feat              | Changes                                                      | Rationale                     |
-| ----------------- | ------------------------------------------------------------ | ----------------------------- |
-| Combat Expertise  | Intelligence requirement is removed from this and followup feats. | Too niche for no good reason. |
-| Stand Still       | Affects all threatened squares instead of only adjacent ones. |                               |
-| Fast Drinker      | Requirements removed.                                        |                               |
-| Extra Arcane Pool | Gain 3 points instead.                                       |                               |
-| Extra Ki Pool     | Gain 3 points instead.                                       |                               |
-| Quick sheath      | Requirements removed.                                        |                               |
+| Feat                     | Changes                                                      | Rationale                     |
+| ------------------------ | ------------------------------------------------------------ | ----------------------------- |
+| Combat Expertise         | Intelligence requirement is removed from this and followup feats. | Too niche for no good reason. |
+| Stand Still              | Affects all threatened squares instead of only adjacent ones. |                               |
+| Fast Drinker             | Requirements removed.                                        |                               |
+| Extra Arcane Pool        | Gain 3 points instead.                                       |                               |
+| Extra Ki Pool            | Gain 3 points instead.                                       |                               |
+| Quick sheath             | Requirements removed.                                        |                               |
+| Medium armor proficiency | Light armor proficiency requirement removed.                 |                               |
+| Heavy armor proficiency  | Medium armor proficiency requirement removed.                |                               |
 
 ## Freebies
 
