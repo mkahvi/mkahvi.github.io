@@ -31,7 +31,7 @@ These are various items you’d want to have with you in no particular order.
 | Food                          | Especially the kind that preserves well. Empty belly is not fun companion. | Foraging & hunting.                                          |
 | Walking stick                 | It’s surprisingly useful.                                    |                                                              |
 | Bedroll                       | Better sleep, or just headrest.                              | Blanket, cloak, large piece of fabric, furs, …               |
-|                               |                                                              |                                                              |
+| Raincoat                      | Protection from the elements.                                | Umbrella, cloak,…                                            |
 
 
 ## Modern only
