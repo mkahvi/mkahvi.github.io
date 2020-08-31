@@ -37,10 +37,10 @@ Experiments
 Items  
 [Altered Weapons](Items/AlteredWeapons)  
 
-Races
+[Races](Race/)
 
-Rules
+[Rules](Rules/)
 
-Spells
+[Spells](Spells/)
 
 [Opinions](Opinions)
