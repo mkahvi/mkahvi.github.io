@@ -1,8 +1,8 @@
 theme: jekyll-theme-cayman
 name: MKAh's site
-title: null
-# title: MKAh's creations
-# description: Untold number of things created by MKAh.
+#title: null
+title: MKAh's site
+description: /mkahvi.github.io/
 
 kramdown:
   hard_wrap: true
