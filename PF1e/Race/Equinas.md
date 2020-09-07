@@ -44,6 +44,8 @@ Not actually that much bigger than _Common Equinas_, simply much bulkier.
 
 ## Level-up Bonus
 
+See [generic bonuses](../Class/Generic) for additional options.
+
 | Class | Bonus                    |
 | ----- | ------------------------ |
 | Any   | +2 HP up to total of +10 |

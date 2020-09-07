@@ -1,16 +1,16 @@
 # Kobold
 
-**Author(s)**: MKAh (Discord: Mana#4176)
-**Created**: 2020-08-13
+**Author(s)**: MKAh (Discord: Mana#4176)  
+**Created**: 2020-08-13  
 **Updated**: 2020-08-31
 
 ## Description
 
-This is re-imagining of the kobolds as they’re presented in the core rules.
+This is re-imagining of the kobolds.
 
 ## Abilities
 
-**Ability Scores**: -2 Str, +2 Dex
+**Ability Scores**: -2 Str, +2 Dex  
 **Optionally also**: -2 Con, +2 Cha
 
 You gain *Draconic Aspect* or free bonus non-combat feat.
@@ -47,13 +47,13 @@ Prerequisites: Dragon Ogre kobold, character level 1
 
 You are one size category larger.
 
-## Class Bonus
+## Level-up Bonus
 
-...
+See [generic bonuses](../Class/Generic) for additional options.
 
 ## Changelog
 
-2020-08-13: Initial
+2020-08-13: Initial  
 2020-08-31: Adjustments to sub-races. Added weakling quality and dragon ogre sub-race.
 
 ## Disclaimer
