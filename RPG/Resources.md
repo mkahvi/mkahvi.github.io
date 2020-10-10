@@ -2,7 +2,8 @@
 
 **Mainteined by**: MKAh (Discord: Mana#4176)
 
-[TOC]
+* TOC
+{:toc}
 
 ## Mapping
 
