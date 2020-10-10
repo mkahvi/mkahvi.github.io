@@ -2,6 +2,8 @@
 
 **By**: MKAh (Discord: Mana#4176)
 
+[Go back](./)
+
 ## Fail Forward
 
 If rolls are involved, *something* should always happen regardless of success or failure.

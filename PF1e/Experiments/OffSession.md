@@ -2,6 +2,8 @@
 
 **By**: MKAh (Discord: Mana#4176)
 
+[Go back](./)
+
 ## End of Session activities
 
 These are primarily meant for players to do.

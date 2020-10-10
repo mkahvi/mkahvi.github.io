@@ -4,6 +4,8 @@
 **Created**: 2020-08-14  
 **Updated**: 2020-08-14
 
+[Go back](./)
+
 ## Description
 
 This is re-imagining of the cavalier class as it is presented in the core rules.

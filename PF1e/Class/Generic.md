@@ -1,5 +1,7 @@
 # Generic Class
 
+[Go back](./)
+
 ## FCB
 
 | Class                                 | Bonus                                                 |

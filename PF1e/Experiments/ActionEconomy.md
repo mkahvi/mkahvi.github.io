@@ -2,6 +2,8 @@
 
 **By**: MKAh (Discord: Mana#4176)
 
+[Go back](./)
+
 ## Remove Full Attack
 
 Allow iterative attacks on standard attack.
