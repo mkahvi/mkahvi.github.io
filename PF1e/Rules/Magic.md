@@ -2,6 +2,8 @@
 
 **By**: MKAh (Discord: Mana#4176)
 
+[Go back](./)
+
 Spell DC is always 10 + ½ CL + Ability modifier on all spell levels.
 
 ## Schools
