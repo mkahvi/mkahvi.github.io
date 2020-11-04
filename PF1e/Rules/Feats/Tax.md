@@ -37,6 +37,7 @@
 | Power Strike                                                 | Too necessary prerequisites                                  |                                                              |
 | Weapon Finesse                                               | Dex is a problem, but feat taxing it is not a solution.      |                                                              |
 | Combat Expertise                                             |                                                              |                                                              |
+| Improved Unarmed Strike                                      | It just… why is this a feat? It’s just gatekeeping a bad attack why? |                                                              |
 |                                                              |                                                              |                                                              |
 | Improved Counterspell                                        | Who ever counterspells?                                      |                                                              |
 | Rhino Charge                                                 | Normally you can charge as standard action ONLY if you're limited to standard action.<br />Backswing: You can NOT move during your turn. | All prerequisites are waived.                                |
