@@ -1,6 +1,7 @@
 ﻿// by M.K.A. 2013–2020
-// last updated: 2020-11-27 (fix fractionalize using parseInt instead of parseFloat; minor modernization)
+// last updated: 2020-11-29 (ensure parseInt doesn't do weird stuff)
 // previous updates:
+// - 2020-11-27 (fix fractionalize using parseInt instead of parseFloat; minor modernization)
 // - 2020-06-25 (fix for decimals in distances)
 // - 2017-05-25
 
@@ -131,7 +132,7 @@ function dieparse(form) {
 		// ROLL REPEATING
 		tmp = roll.split('#', 2);
 		if (tmp.length == 2) {
-			repeat = parseInt(tmp[0]);
+			repeat = parseInt(tmp[0], 10);
 			if (isNaN(repeat))
 				repeat = 1;
 			roll = tmp[1];
@@ -150,8 +151,8 @@ function dieparse(form) {
 			if (wst[0] == '-' || wst[0] == '+')
 				wst = wst.substr(1);
 			ws = wst.split('d', 2);
-			nrcount = parseInt(ws[0]);
-			nrdie = parseInt(ws[1]);
+			nrcount = parseInt(ws[0], 10);
+			nrdie = parseInt(ws[1], 10);
 			if (!isNaN(nrcount)) // discard non-numbers and pointless zeroes
 				rolls.push(new DieRoll(nrcount, nrdie, positive));
 		}
@@ -186,10 +187,10 @@ function roller(count, die) {
 function dieroll(form) {
 	console.log("Parsing simple die roll...");
 
-	var die = parseInt(form.die.value),
-		mod = parseInt(form.mod.value),
-		count = parseInt(form.count.value),
-		repeat = parseInt(form.repeat.value),
+	var die = parseInt(form.die.value, 10),
+		mod = parseInt(form.mod.value, 10),
+		count = parseInt(form.count.value, 10),
+		repeat = parseInt(form.repeat.value, 10),
 		header = null;
 
 	// enforce some sanity
@@ -286,9 +287,9 @@ function printdieroll(rolls, condition = null) {
 	if (condition) {
 		var greaterthan = null, lesserthan = null;
 		if (condition[0] == '>') {
-			greaterthan = parseInt(condition.substr(1));
+			greaterthan = parseInt(condition.substr(1), 10);
 		} else if (condition[0] == '<') {
-			lesserthan = parseInt(condition.substr(1));
+			lesserthan = parseInt(condition.substr(1), 10);
 		}
 
 		if (greaterthan && total > greaterthan) {
@@ -585,7 +586,7 @@ function gcdmultiform(form) {
 	var n = form.gcdin.value.split(',');
 
 	for (var i = 0; i < n.length; i++) {
-		n[i] = parseInt(n[i]);
+		n[i] = parseInt(n[i], 10);
 		if (isNaN(n[i])) {
 			form.gcdout.value = `[${n}]`;
 			return false;
@@ -600,8 +601,8 @@ function gcdmultiform(form) {
 
 
 function gcdform(form) {
-	var g1 = parseInt(form.gcdin1.value),
-		g2 = parseInt(form.gcdin2.value);
+	var g1 = parseInt(form.gcdin1.value, 10),
+		g2 = parseInt(form.gcdin2.value, 10);
 
 	form.gcdout.value = `[${g1} / ${g2}]`;
 	if (isNaN(g1) || isNaN(g2)) return; // break out if bad input
@@ -631,8 +632,8 @@ function fraction(form) {
 }
 
 function simplify(form) {
-	var n1 = parseInt(form.sin1.value),
-		n2 = parseInt(form.sin2.value);
+	var n1 = parseInt(form.sin1.value, 10),
+		n2 = parseInt(form.sin2.value, 10);
 	// e.g. 108/24 = (108/gcd)/(24/gcd) = 9/2
 
 	form.sout1.value = `[${n1}]`;
@@ -647,8 +648,8 @@ function simplify(form) {
 
 function simplifyfract(form) {
 	var tmp = form.fractionout.value.split(' / ');
-	var n1 = parseInt(tmp[0]),
-		n2 = parseInt(tmp[1]);
+	var n1 = parseInt(tmp[0], 10),
+		n2 = parseInt(tmp[1], 10);
 
 	form.fractionout.value = `[${n1} / ${n2}]`;
 	if (isNaN(n1) || isNaN(n2)) return; // don't break on bad input
