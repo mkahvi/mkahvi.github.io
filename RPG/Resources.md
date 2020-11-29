@@ -38,6 +38,7 @@
 ### Creation
 
 * [Token Stamp by RollAdvantage](http://rolladvantage.com/tokenstamp/) (0¤, online only)
+* [Tokens Vault](https://thetokensvault.com/) (WIP 2020)
 
 #### Generators
 
@@ -48,6 +49,10 @@
 ##### 3D
 
 * [HeroForge](https://www.heroforge.com/) (various pre-made assets)
+
+## Portraits
+
+* [Reroll](https://reroll.co/) (pixel art portraits)
 
 ## Virtual Tabletops (VTTs)
 
