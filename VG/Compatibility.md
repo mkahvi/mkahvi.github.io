@@ -43,3 +43,10 @@ $game = Start-Process $exe $params -PassThru
 $game.ProcessorAffinity = 0x1
 ```
 
+# :package: ​Resources
+
+* [PC Gaming Wiki](https://www.pcgamingwiki.com/)
+
+# :hammer_and_wrench: Tools
+
+Nothing here for now.
