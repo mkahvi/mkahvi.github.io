@@ -6,3 +6,7 @@
 
 - [Generic fixes](./Fixes)
 - [Problems specific to certain games](./Specific)
+
+## Resources
+
+- [PC Gaming Wiki](https://www.pcgamingwiki.com/)
