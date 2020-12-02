@@ -12,7 +12,7 @@ Random factoids about video game compatibility and solutions to it, as collected
 ### :green_heart: Solutions
 
 **General**: Unclear.  
-**AMD specific**: Ryzen Master provides Legacy Compatibility Mode option in Game Mode which is meant to solve this.
+**AMD specific**: _Ryzen Master_ provides `Legacy Compatibility Mode` option in Game Mode which is meant to solve this, and it works. Disabling SMT supposedly helps, too.
 
 ##  :heavy_exclamation_mark: Single-core – Win 98/ME and older games (pre-Win2k)
 
@@ -50,7 +50,3 @@ $game.ProcessorAffinity = 0x1
 # :hammer_and_wrench: Tools
 
 Nothing here for now.
-
-—markdown testing—
-
-:package: :hammer_and_wrench: :heavy_exclamation_mark: :green_heart:
