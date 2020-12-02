@@ -4,7 +4,7 @@ Various video games that I feel are worthy of mentioning for one reason or anoth
 
 These lists may have duplicate entries, probably signaling that they are especially liked by me.
 
-Concepts: [Biotech](Biotech) | [Chambering](Chambering) | [Non-human MC](NonhumanMC) | [Superorganisms](Superorganisms) | [Unsorted](Unsorted)
+Concepts: [Biotech](Biotech), [Chambering](Chambering), [Non-human MC](NonhumanMC), [Superorganisms](Superorganisms), [Reusables](./Reusables), [Luggage](./Luggage), [Unsorted](Unsorted)
 
 ## Favorites
 
@@ -19,11 +19,14 @@ Concepts: [Biotech](Biotech) | [Chambering](Chambering) | [Non-human MC](Nonhum
 | Magic: The Gathering                                  | Microprose?                | 1997 (Win)               |                                                              |
 | Duke Nukem 3D                                         |                            | 1994? (DOS)              | Early FPS excellence.                                        |
 | Blood                                                 |                            |                          | Grisly but comedic early FPS                                 |
+| Witchaven                                             |                            | 1995                     | Interesting fantasy first-person brawler (“FPS”)             |
+| Witchaven 2                                           |                            |                          |                                                              |
+| CyberMage: Darklight Awakening                        |                            |                          | Unusual science-fantasy FPS                                  |
 | Nexus: The Jupiter Incident                           | Mithis Entertainment       | 2004 (Win32)             | Tactical RTS in space                                        |
 | X-COM: UFO Defense                                    | Microprose                 | 1994                     | Fantastic scifi tactical strategy.                           |
 | X-COM: Terror from the Deep                           | Microprose                 | 1995                     | Great sequel.                                                |
 | X-COM: Apocalypse                                     | Microprose                 | 1997 (DOS)               |                                                              |
-| Die by the Sword                                      |                            |                          |                                                              |
+| Die by the Sword                                      |                            |                          | Amazing third-person sword & sorcery game with very unusual physics and motion based control system. Resembles modern VR games in many ways. |
 | Mirror’s Edge                                         |                            |                          |                                                              |
 | Legacy of Kain: Soul Reaver                           |                            |                          |                                                              |
 | Legacy of Kain: Soul Reaver 2                         |                            |                          |                                                              |
@@ -36,7 +39,7 @@ Concepts: [Biotech](Biotech) | [Chambering](Chambering) | [Non-human MC](Nonhum
 | Lands of Lore: The Throne of Chaos                    |                            |                          |                                                              |
 | Lands of Lore 2: Guardians of Destiny                 |                            |                          |                                                              |
 | Lands of Lore 3                                       |                            |                          |                                                              |
-| Anvil of Dawn                                         |                            |                          |                                                              |
+| Anvil of Dawn                                         |                            |                          | Grid-based dungeonc crawler with very interesting world building. Classic fantasy. |
 | Drakan: Order of the Flame                            |                            |                          | Dragon riding, fun combat, great world, etc.                 |
 | Drakan 2                                              |                            |                          |                                                              |
 | Hedon                                                 |                            | 2019?                    | Loveletter to old-skool FPS                                  |
@@ -86,6 +89,7 @@ Concepts: [Biotech](Biotech) | [Chambering](Chambering) | [Non-human MC](Nonhum
 | Duskers                                               | Misfits Attic              | 2016 (Win)               |                                                              |
 | Ultima Underworld: The Stygian Abyss                  | Blue Sky Productions       | 1992 (DOS)               |                                                              |
 | Ultima Underworld II: Labyrinth of Worlds             | Looking Glass Technologies | 1993 (DOS)               |                                                              |
+| Ultima VIII: Pagan                                    |                            |                          |                                                              |
 | Papers, Please                                        | Lucas Pope                 | 2013 (Win)               |                                                              |
 | Half-Life: Alyx                                       | Valve                      | 2020 (Win64)             | If only I had VR.                                            |
 | Rune                                                  | Human Head Studios         | 2000 (Win32)             | Great third-person viking action-adventure.                  |

@@ -1,5 +1,7 @@
 # Unsorted
 
+[Go back](./)
+
 Not clearly identified good stuff.
 
 | Game      | Developer | Released | Notes                                                        |

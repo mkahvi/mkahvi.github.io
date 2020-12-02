@@ -1,5 +1,7 @@
 # Chambering
 
+[Go back](./)
+
 Loading ammo into weapons one at a time with the loading interruptable with partial reloading.
 
 | Game      | Released                  | Notes               |

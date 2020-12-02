@@ -1,5 +1,7 @@
 # Biotechnology
 
+[Go back](./)
+
 Rampant use of biotechnology.
 
 | Game  | Developer    | Released | Notes                                                        |
