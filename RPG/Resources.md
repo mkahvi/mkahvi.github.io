@@ -11,6 +11,7 @@
 
 * [Dungeondraft](https://dungeondraft.net/) (20¤)
 * [Deepnight’s TTRPG Map Editor](https://deepnight.itch.io/tabletop-rpg-map-editor) (0¤ to PWYW)
+* [Dungeon Scrawl](https://dungeonscrawl.com/) ([@itch.io](https://probabletrain.itch.io/dungeon-scrawl)) (0¤ / Free)
 
 #### Generators
 
@@ -74,7 +75,7 @@
 
 * [BBC SFX](http://bbcsfx.acropolis.org.uk/) – about 16k sounds, free for personal use
 
-## Macros
+## Scripts / Macros
 
 ### FoundryVTT
 
