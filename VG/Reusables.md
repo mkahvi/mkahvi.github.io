@@ -4,9 +4,8 @@
 
 …
 
-| Title           |                                                       |  |
-|-----------------|-------------------------------------------------------|--|
-| Project Zomboid | Pans, bottles, pretty much everything,…               |  |
-| Noita           | Potions and sacks can be refiled, the contents mixed. |  |
-|                 |                                                       |  |
-
+|Title|||
+|---|---|---|
+|Project Zomboid|Pans, bottles, pretty much everything,…||
+|Noita|Potions and sacks can be refiled, the contents mixed.||
+||||
